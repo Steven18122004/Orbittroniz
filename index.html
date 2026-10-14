@@ -1,97 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Orbittroniz AI Studio</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
-body{min-height:100vh;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);color:#fff;padding:12px}
-.c{background:rgba(255,255,255,.09);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:20px;width:100%;max-width:900px;margin:0 auto}
-h1{font-size:28px;text-align:center;background:linear-gradient(90deg,#60a5fa,#a78bfa,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900}
-.s{color:#cbd5e1;text-align:center;font-size:13px;margin:6px 0 14px}
-.t{display:flex;gap:5px;background:rgba(0,0,0,.35);padding:4px;border-radius:12px;margin-bottom:14px;flex-wrap:wrap}
-.tb{flex:1;padding:10px;text-align:center;border-radius:9px;cursor:pointer;color:#94a3b8;font-size:12px;font-weight:700}
-.tb.a{background:linear-gradient(90deg,#3b82f6,#8b5cf6);color:#fff}
-input,textarea,select{width:100%;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:12px;margin-bottom:10px;color:#fff;font-size:13px}
-button{width:100%;background:linear-gradient(90deg,#3b82f6,#8b5cf6);border:none;border-radius:10px;padding:12px;color:#fff;font-weight:700;cursor:pointer;margin-bottom:8px}
-button.g{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15)}
-.box{background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;margin-top:12px}
-.rimg{width:100%;border-radius:10px;margin-top:10px;background:rgba(0,0,0,.3)}
-.hide{display:none}
-#auth{max-width:400px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-@media(max-width:600px){.grid{grid-template-columns:1fr}}
-</style>
-</head>
-<body>
 
-<!-- AUTH -->
-<div class="c" id="auth">
-<h1>Orbittroniz</h1><p class="s">AI Studio - Login to Continue</p>
-<div class="t"><div class="tb" id="tL" onclick="setM('login')">Login</div><div class="tb a" id="tS" onclick="setM('signup')">Sign Up</div></div>
-<input id="em" type="email" placeholder="Email e.g. test@gmail.com">
-<input id="pw" type="password" placeholder="Password min 6">
-<button id="mainB" onclick="doAuth()">Create Account</button>
-<p id="msg" style="text-align:center;font-size:12px;color:#86efac;min-height:16px;margin-top:6px"></p>
-</div>
-
-<!-- DASHBOARD -->
-<div class="c hide" id="dash">
-<div style="display:flex;justify-content:space-between;align-items:center"><div><b id="uE"></b><p class="s" style="text-align:left;margin:0">Welcome ✅ Login Successful</p></div><button onclick="logout()" style="width:auto;padding:8px 14px" class="g">Logout</button></div>
-
-<div class="t" style="margin-top:14px">
-<div class="tb a" id="bt1" onclick="openT('img')">🎨 Image</div>
-<div class="tb" id="bt2" onclick="openT('logo')">✏️ Logo</div>
-<div class="tb" id="bt3" onclick="openT('3d')">🧊 3D</div>
-<div class="tb" id="bt4" onclick="openT('vid')">🎬 Video</div>
-<div class="tb" id="bt5" onclick="openT('voice')">🎙️ Voice</div>
-</div>
-
-<!-- IMAGE -->
-<div id="t-img" class="box">
-<b>AI Image Generator</b><p class="s" style="text-align:left">Unlimited free</p>
-<textarea id="pImg" rows="2" placeholder="A futuristic robot city, 4k"></textarea>
-<div class="grid"><select id="sImg"><option>Realistic</option><option>Anime</option><option>3D Render</option><option>Cyberpunk</option></select><select id="rImg"><option value="1024x1024">1:1 Square</option><option value="1280x720">16:9 Wide</option><option value="720x1280">9:16 Portrait</option></select></div>
-<button onclick="gImg()">Generate ✨</button><div id="rImgD"></div>
-</div>
-
-<!-- LOGO -->
-<div id="t-logo" class="box hide">
-<b>AI Logo Maker</b>
-<input id="lName" placeholder="Brand: Orbittroniz"><input id="lStyle" placeholder="Style: minimal rocket blue purple">
-<button onclick="gLogo()">Generate Logo ✨</button><div id="rLogo"></div>
-</div>
-
-<!-- 3D TOOL -->
-<div id="t-3d" class="box hide">
-<b>3D Text / Logo Generator</b><p class="s" style="text-align:left">Create 3D look instantly</p>
-<input id="t3d" placeholder="Text: ORBITTRONIZ">
-<div class="grid"><select id="c3d"><option value="#60a5fa">Blue</option><option value="#a78bfa">Purple</option><option value="#f472b6">Pink</option><option value="#f59e0b">Gold</option></select><select id="f3d"><option>3D Extrude</option><option>Neon Glow</option><option>Metallic</option></select></div>
-<button onclick="g3d()">Generate 3D ✨</button>
-<div id="r3d" style="height:180px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.3);border-radius:10px;margin-top:10px;font-size:28px;font-weight:900;perspective:500px"><div id="t3dOut" style="transform:rotateY(-20deg) rotateX(10deg);text-shadow:0 1px 0 #ccc,0 2px 0 #c9c9c9,0 3px 0 #bbb,0 4px 0 #b9b9b9,0 5px 0 #aaa,0 6px 1px rgba(0,0,0,.1),0 0 5px rgba(0,0,0,.1),0 1px 3px rgba(0,0,0,.3),0 3px 5px rgba(0,0,0,.2),0 5px 10px rgba(0,0,0,.25)">ORBITTRONIZ</div></div>
-</div>
-
-<!-- VIDEO -->
-<div id="t-vid" class="box hide">
-<b>Image to Video</b><input type="file" id="vFile" accept="image/*"><input id="vP" placeholder="Motion: zoom in cinematic">
-<button onclick="gVid()">Make Video 🎬</button><div id="rVid"></div>
-</div>
-
-<!-- VOICE -->
-<div id="t-voice" class="box hide">
-<b>AI Voice Generator</b><textarea id="vT" rows="2" placeholder="Type text to speak"></textarea>
-<div class="grid"><select id="vSel"></select><select id="vSp"><option value="1">Normal</option><option value="0.8">Slow</option><option value="1.2">Fast</option></select></div>
-<button onclick="gVoice()">Speak 🎙️</button><button class="g" onclick="speechSynthesis.cancel()">Stop</button><div id="rVT"></div>
-</div>
-
-</div>
-
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Orbittroniz</title><style>*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}body{min-height:100vh;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);display:flex;align-items:center;justify-content:center;padding:16px}.c{background:rgba(255,255,255,.09);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.15);border-radius:24px;padding:26px;width:100%;max-width:420px;text-align:center}h1{font-size:30px;background:linear-gradient(90deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900}.s{color:#cbd5e1;font-size:14px;margin:8px 0 18px}.t{display:flex;gap:6px;background:rgba(0,0,0,.35);padding:5px;border-radius:12px;margin-bottom:18px}.tb{flex:1;padding:10px;border-radius:10px;cursor:pointer;color:#94a3b8;font-size:13px}.tb.a{background:linear-gradient(90deg,#3b82f6,#8b5cf6);color:#fff;font-weight:700}input{width:100%;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:13px;margin-bottom:11px;color:#fff}button{width:100%;background:linear-gradient(90deg,#3b82f6,#8b5cf6);border:none;border-radius:12px;padding:13px;color:#fff;font-weight:700;cursor:pointer}button.s2{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);margin-top:10px}#m{color:#86efac;font-size:13px;margin-top:10px;min-height:18px}</style></head><body>
+<div class="c" id="aBox"><h1>Orbittroniz</h1><p class="s">AI Image & Logo Generator</p><div class="t"><div class="tb" id="tL" onclick="M('login')">Login</div><div class="tb a" id="tS" onclick="M('signup')">Sign Up</div></div><input id="e" type="email" placeholder="Email"><input id="p" type="password" placeholder="Password min 6 chars"><button id="b" onclick="H()">Create Account</button><div id="m"></div></div>
+<div class="c" id="dBox" style="display:none"><h2 style="color:#fff">Welcome 👋</h2><p class="s" id="ue"></p><p style="color:#86efac;margin:12px 0">✅ Login Successful!</p><button class="s2" onclick="logout()">Logout</button></div>
 <script>
-// AUTH - 100% SIMPLE NO BUG
 let mode='signup';
-function setM(m){mode=m;document.getElementById('tL').className=m=='login'?'tb a':'tb';document.getElementById('tS').className=m=='signup'?'tb a':'tb';document.getElementById('mainB').innerText=m=='login'?'Login':'Create Account';}
-function doAuth(){
- let e=document.getElementById('em').value.trim(), p=document.getElementById('pw').value, msg=document.getElementById('msg');
- if(!e.includes('@')||p.length<6){msg.innerHTML='<span style=color:#fca5a5>Valid email + 6 char pass needed</span>';return;}
- if(mode=='signup'){localStorage.setItem('oU',JSON.stringify({e:e,p:p}));msg.innerText='✅ Created! Login...';setTimeout(function
+function M(m){mode=m;document.getElementById('tL').className=m=='login'?'tb a':'tb';document.getElementById('tS').className=m=='signup'?'tb a':'tb';document.getElementById('b').innerText=m=='login'?'Login':'Create Account';}
+function H(){let e=document.getElementById('e').value.trim(),p=document.getElementById('p').value,m=document.getElementById('m');if(!e.includes('@')||p.length<6){m.innerHTML='<span style=color:#fca5a5>Enter valid email & 6+ char pass</span>';return}if(mode=='signup'){localStorage.setItem('oU',JSON.stringify({e,p}));m.innerText='✅ Account created!';setTimeout(()=>S(e),500)}else{let u=JSON.parse(localStorage.getItem('oU')||'null');if(u&&u.e==e&&u.p==p)S(e);else m.innerHTML='<span style=color:#fca5a5>Wrong password or signup first</span>'}}
+function S(email){document.getElementById('aBox').style.display='none';document.getElementById('dBox').style.display='block';document.getElementById('ue').innerText=email;localStorage.setItem('oL',email)}
+function logout(){localStorage.removeItem('oL');location.reload()}
+let L=localStorage.getItem('oL');if(L)S(L);
+</script></body></html>
