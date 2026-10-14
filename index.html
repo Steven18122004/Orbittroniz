@@ -1,25 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Orbittroniz</title>
+<title>Orbittroniz - AI Studio</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
-body{min-height:100vh;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);display:flex;align-items:center;justify-content:center;padding:20px}
-.card{background:rgba(255,255,255,0.08);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.15);border-radius:24px;padding:28px;width:100%;max-width:400px}
-h1{font-size:32px;text-align:center;background:linear-gradient(90deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900}
-.sub{color:#cbd5e1;text-align:center;font-size:14px;margin:8px 0 20px}
-.tabs{display:flex;gap:6px;background:rgba(0,0,0,0.3);padding:5px;border-radius:12px;margin-bottom:20px}
-.tab{flex:1;padding:11px;text-align:center;border-radius:10px;cursor:pointer;color:#94a3b8}
-.tab.active{background:linear-gradient(90deg,#3b82f6,#8b5cf6);color:#fff;font-weight:700}
-input{width:100%;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:14px;margin-bottom:12px;color:#fff}
-button{width:100%;background:linear-gradient(90deg,#3b82f6,#8b5cf6);color:#fff;border:none;border-radius:12px;padding:14px;font-weight:700;cursor:pointer;margin-bottom:10px}
-button.sec{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15)}
-#msg{text-align:center;font-size:13px;min-height:20px;margin-top:10px;color:#86efac}
-#dash{display:none;text-align:center;color:#fff}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui,sans-serif}
+body{min-height:100vh;background:radial-gradient(1200px 600px at 20% -10%,#2a2a5e 0%,#1a1a40 40%,#0f0f2e 100%),linear-gradient(135deg,#0f0c29,#302b63,#24243e);color:#fff;padding:20px}
+.card{background:rgba(255,255,255,0.08);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.15);border-radius:24px;padding:24px;width:100%;max-width:900px;margin:0 auto;box-shadow:0 25px 50px rgba(0,0,0,0.4)}
+h1{font-size:32px;text-align:center;background:linear-gradient(90deg,#60a5fa,#a78bfa,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900}
+.sub{color:#cbd5e1;text-align:center;font-size:14px;margin:10px 0 20px}
+.tabs{display:flex;gap:6px;background:rgba(0,0,0,0.35);padding:5px;border-radius:14px;margin-bottom:20px;flex-wrap:wrap}
+.tab{padding:11px 14px;text-align:center;border-radius:10px;cursor:pointer;color:#94a3b8;font-size:13px;font-weight:600;transition:0.25s;flex:1}
+.tab.active{background:linear-gradient(90deg,#3b82f6,#8b5cf6);color:#fff}
+input,textarea,select{width:100%;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:14px 16px;margin-bottom:12px;color:#fff;font-size:14px;outline:none}
+input:focus,textarea:focus{border-color:#60a5fa}
+button{width:100%;background:linear-gradient(90deg,#3b82f6,#8b5cf6);color:#fff;border:none;border-radius:12px;padding:14px;font-weight:700;font-size:14px;cursor:pointer;margin-bottom:10px;box-shadow:0 8px 20px rgba(59,130,246,0.25);transition:0.2s}
+button:hover{transform:translateY(-1px)}
+button.sec{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);box-shadow:none}
+button.small{width:auto;padding:8px 14px;font-size:12px;display:inline-block;margin:5px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+.tool-box{background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:18px;margin-bottom:16px}
+.result-img{width:100%;border-radius:12px;margin-top:12px;max-height:400px;object-fit:contain;background:rgba(0,0,0,0.3)}
+#authBox{max-width:420px}
+#dashBox{display:none}
+.hidden{display:none}
+.badge{background:linear-gradient(90deg,#f59e0b,#ef4444);padding:2px 8px;border-radius:20px;font-size:10px;font-weight:800;margin-left:6px}
 </style>
 </head>
 <body>
+
+<!-- LOGIN -->
 <div class="card" id="authBox">
 <h1>Orbittroniz</h1>
 <p class="sub">AI Image & Logo Generator</p>
@@ -28,51 +40,119 @@ button.sec{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.
 <div class="tab active" id="tabS" onclick="setMode('signup')">Sign Up</div>
 </div>
 <input id="email" type="email" placeholder="Email" value="stevenalphanso1812@gmail.com">
-<input id="pass" type="password" placeholder="Password" value="12345678">
-<button type="button" onclick="handle()">Create Account</button>
-<button type="button" class="sec">Continue with Google</button>
-<div id="msg"></div>
+<input id="pass" type="password" placeholder="Password (min 6)">
+<button id="mainBtn" type="button" onclick="handleAuth()">Create Account</button>
+<div id="msg" style="text-align:center;font-size:13px;min-height:20px;color:#86efac"></div>
 </div>
 
-<div class="card" id="dash">
-<h2>Welcome 👋</h2>
-<p class="sub" id="uemail"></p>
-<p style="color:#86efac;margin:15px 0">✅ Login Successful!</p>
-<button type="button" class="sec" onclick="logout()">Logout</button>
+<!-- DASHBOARD -->
+<div class="card" id="dashBox">
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+<div><h2 style="background:none;-webkit-text-fill-color:#fff">Welcome 👋</h2><p class="sub" id="uemail" style="margin:0;text-align:left"></p></div>
+<button class="small sec" onclick="logout()">Logout</button>
+</div>
+
+<div class="tabs" style="margin-top:20px">
+<div class="tab active" onclick="openTool('img')">🎨 Image</div>
+<div class="tab" onclick="openTool('logo')">✏️ Logo</div>
+<div class="tab" onclick="openTool('video')">🎬 Img→Video</div>
+<div class="tab" onclick="openTool('voice')">🎙️ Voice</div>
+</div>
+
+<!-- IMAGE GENERATOR -->
+<div id="tool-img" class="tool-box">
+<h3>AI Image Generator</h3>
+<p class="sub" style="text-align:left">Type anything - Free unlimited</p>
+<textarea id="imgPrompt" rows="3" placeholder="e.g. Futuristic city at night, cyberpunk, 4k, ultra detailed"></textarea>
+<div class="grid">
+<select id="imgStyle"><option>Realistic</option><option>Anime</option><option>3D Render</option><option>Cyberpunk</option><option>Logo Style</option></select>
+<select id="imgRatio"><option value="1024x1024">Square 1:1</option><option value="1280x720">Wide 16:9</option><option value="720x1280">Portrait 9:16</option></select>
+</div>
+<button onclick="genImage()">Generate Image ✨</button>
+<div id="imgResult"></div>
+</div>
+
+<!-- LOGO MAKER -->
+<div id="tool-logo" class="tool-box hidden">
+<h3>AI Logo Maker</h3>
+<input id="logoName" placeholder="Company Name: e.g. Orbittroniz">
+<input id="logoPrompt" placeholder="Style: e.g. Minimal rocket, gradient blue purple">
+<button onclick="genLogo()">Generate Logo ✨</button>
+<div id="logoResult"></div>
+</div>
+
+<!-- IMAGE TO VIDEO -->
+<div id="tool-video" class="tool-box hidden">
+<h3>Image to Video Generator <span class="badge">BETA</span></h3>
+<p class="sub" style="text-align:left">Upload image to animate</p>
+<input type="file" id="vidImage" accept="image/*">
+<textarea id="vidPrompt" rows="2" placeholder="Motion: e.g. camera zoom in, cinematic, particles moving"></textarea>
+<button onclick="genVideo()">Generate Video 🎬</button>
+<div id="videoResult"></div>
+<p class="sub" style="text-align:left;font-size:11px;margin-top:10px">Note: Free version creates animated preview. For real video, connect RunwayML API later.</p>
+</div>
+
+<!-- VOICE GENERATOR -->
+<div id="tool-voice" class="tool-box hidden">
+<h3>AI Voice Generator</h3>
+<textarea id="voiceText" rows="3" placeholder="Type text to speak: e.g. Welcome to Orbittroniz, your AI creative studio"></textarea>
+<div class="grid">
+<select id="voiceSelect"></select>
+<select id="voiceSpeed"><option value="1">Normal Speed</option><option value="0.8">Slow</option><option value="1.2">Fast</option></select>
+</div>
+<button onclick="genVoice()">Generate Voice 🎙️</button>
+<button class="sec" onclick="stopVoice()">Stop</button>
+<div id="voiceResult" style="margin-top:10px"></div>
+</div>
+
 </div>
 
 <script>
+// LOGIN LOGIC - WORKING
 let mode='signup';
 function setMode(m){
  mode=m;
  document.getElementById('tabL').className=m==='login'?'tab active':'tab';
  document.getElementById('tabS').className=m==='signup'?'tab active':'tab';
- event.target.innerText=m;
- document.querySelector('#authBox button').innerText=m==='login'?'Login':'Create Account';
+ document.getElementById('mainBtn').innerText=m==='login'?'Login':'Create Account';
 }
-function handle(){
+function handleAuth(){
  const e=document.getElementById('email').value.trim();
  const p=document.getElementById('pass').value;
  const msg=document.getElementById('msg');
- if(!e||p.length<6){msg.innerHTML='<span style=color:#fca5a5>Enter valid email & 6+ char password</span>';return;}
+ if(!e||p.length<6){msg.innerHTML='<span style=color:#fca5a5>Enter valid email & 6+ chars</span>';return;}
  if(mode==='signup'){
    localStorage.setItem('orbit_user',JSON.stringify({email:e,pass:p}));
    msg.innerHTML='✅ Account created! Logging in...';
-   setTimeout(()=>show(e),800);
+   setTimeout(()=>showDash(e),600);
  }else{
-   let saved=JSON.parse(localStorage.getItem('orbit_user')||'null');
-   if(saved && saved.email===e && saved.pass===p){show(e);}else{msg.innerHTML='<span style=color:#fca5a5>Wrong email/password or signup first</span>';}
+   let s=JSON.parse(localStorage.getItem('orbit_user')||'null');
+   if(s&&s.email===e&&s.pass===p){showDash(e);}else{msg.innerHTML='<span style=color:#fca5a5>Wrong password or signup first</span>';}
  }
 }
-function show(email){
+function showDash(email){
  document.getElementById('authBox').style.display='none';
- document.getElementById('dash').style.display='block';
+ document.getElementById('dashBox').style.display='block';
  document.getElementById('uemail').innerText=email;
  localStorage.setItem('orbit_logged',email);
 }
 function logout(){localStorage.removeItem('orbit_logged');location.reload();}
 let logged=localStorage.getItem('orbit_logged');
-if(logged){show(logged);}
-</script>
-</body>
-</html>
+if(logged){showDash(logged);}
+
+// TOOLS
+function openTool(name){
+ document.querySelectorAll('.tool-box').forEach(b=>b.classList.add('hidden'));
+ document.getElementById('tool-'+name).classList.remove('hidden');
+ document.querySelectorAll('#dashBox .tabs .tab').forEach(t=>t.classList.remove('active'));
+ event.target.classList.add('active');
+}
+
+// IMAGE GEN - Uses Pollinations free API (no key)
+async function genImage(){
+ const prompt=document.getElementById('imgPrompt').value||'futuristic city';
+ const style=document.getElementById('imgStyle').value;
+ const ratio=document.getElementById('imgRatio').value;
+ const fullPrompt=encodeURIComponent(prompt+' , '+style+' style, ultra detailed, 8k, professional');
+ const url=`https://image.pollinations.ai/p/${fullPrompt}?width=${ratio.split('x')[0]}&height=${ratio.split('x')[1]}&seed=${Math.floor(Math.random()*9999)}&nologo=true`;
+ const box=document.getElementById('imgResult
