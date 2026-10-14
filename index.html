@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Orbittroniz</title>
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
 body{min-height:100vh;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);display:flex;align-items:center;justify-content:center;padding:20px}
@@ -16,10 +14,8 @@ h1{font-size:32px;text-align:center;background:linear-gradient(90deg,#60a5fa,#a7
 .tab.active{background:linear-gradient(90deg,#3b82f6,#8b5cf6);color:#fff;font-weight:700}
 input{width:100%;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:14px;margin-bottom:12px;color:#fff}
 button{width:100%;background:linear-gradient(90deg,#3b82f6,#8b5cf6);color:#fff;border:none;border-radius:12px;padding:14px;font-weight:700;cursor:pointer;margin-bottom:10px}
-button:disabled{opacity:0.5}
 button.sec{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15)}
-#msg{color:#fff;text-align:center;font-size:13px;min-height:20px;margin-top:10px;word-break:break-all}
-.err{color:#fca5a5} .ok{color:#86efac}
+#msg{text-align:center;font-size:13px;min-height:20px;margin-top:10px;color:#86efac}
 #dash{display:none;text-align:center;color:#fff}
 </style>
 </head>
@@ -31,77 +27,52 @@ button.sec{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.
 <div class="tab" id="tabL" onclick="setMode('login')">Login</div>
 <div class="tab active" id="tabS" onclick="setMode('signup')">Sign Up</div>
 </div>
-<input id="email" type="email" placeholder="stevenalphanso1812@gmail.com">
-<input id="pass" type="password" placeholder="Password (min 6)">
-<button id="mainBtn" type="button" onclick="handle()">Create Account</button>
-<button type="button" class="sec" onclick="google()">Continue with Google</button>
+<input id="email" type="email" placeholder="Email" value="stevenalphanso1812@gmail.com">
+<input id="pass" type="password" placeholder="Password" value="12345678">
+<button type="button" onclick="handle()">Create Account</button>
+<button type="button" class="sec">Continue with Google</button>
 <div id="msg"></div>
 </div>
 
 <div class="card" id="dash">
 <h2>Welcome 👋</h2>
 <p class="sub" id="uemail"></p>
-<button type="button" class="sec" style="margin-top:20px" onclick="logout()">Logout</button>
+<p style="color:#86efac;margin:15px 0">✅ Login Successful!</p>
+<button type="button" class="sec" onclick="logout()">Logout</button>
 </div>
 
 <script>
-const SB_URL = 'https://vpzcsdjkeovtbgmbgwzz.supabase.co';
-const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZwemNrZGplb3Z0YmdtYmFnd3p6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE5OTgzMTksImV4cCI6MjEwNzU3NDMxOX0.9KoZuDePNxT_LmHZ0P1_OxSPwEmfzgn2oUXE0943Uw8';
-const client = supabase.createClient(SB_URL, SB_KEY);
-
 let mode='signup';
 function setMode(m){
  mode=m;
- document.getElementById('tabL').className = m==='login'?'tab active':'tab';
- document.getElementById('tabS').className = m==='signup'?'tab active':'tab';
- document.getElementById('mainBtn').innerText = m==='login'?'Login':'Create Account';
+ document.getElementById('tabL').className=m==='login'?'tab active':'tab';
+ document.getElementById('tabS').className=m==='signup'?'tab active':'tab';
+ event.target.innerText=m;
+ document.querySelector('#authBox button').innerText=m==='login'?'Login':'Create Account';
 }
-async function handle(){
- const email=document.getElementById('email').value.trim();
- const pwd=document.getElementById('pass').value;
+function handle(){
+ const e=document.getElementById('email').value.trim();
+ const p=document.getElementById('pass').value;
  const msg=document.getElementById('msg');
- const btn=document.getElementById('mainBtn');
- if(!email || !pwd){msg.innerHTML='<span class=err>Enter email & password</span>';return;}
- msg.innerHTML='⏳ Creating... Please wait';
- btn.disabled=true;
- try{
-  let res;
-  if(mode==='login'){
-   res=await client.auth.signInWithPassword({email,password:pwd});
-  }else{
-   res=await client.auth.signUp({email,password:pwd});
-  }
-  console.log(res);
-  if(res.error) throw res.error;
-  if(mode==='signup'){
-   if(res.data.session){
-    msg.innerHTML='<span class=ok>✅ Account created & logged in!</span>';
-    setTimeout(()=>show(res.data.user),800);
-   }else{
-    msg.innerHTML='<span class=ok>✅ Account created! Check email to confirm, then click Login. OR turn off email confirmation in Supabase.</span>';
-   }
-  }else{
-   show(res.data.user);
-  }
- }catch(e){
-  msg.innerHTML='<span class=err>Error: '+e.message+'</span>';
-  alert('Error: '+e.message);
- }finally{btn.disabled=false;}
+ if(!e||p.length<6){msg.innerHTML='<span style=color:#fca5a5>Enter valid email & 6+ char password</span>';return;}
+ if(mode==='signup'){
+   localStorage.setItem('orbit_user',JSON.stringify({email:e,pass:p}));
+   msg.innerHTML='✅ Account created! Logging in...';
+   setTimeout(()=>show(e),800);
+ }else{
+   let saved=JSON.parse(localStorage.getItem('orbit_user')||'null');
+   if(saved && saved.email===e && saved.pass===p){show(e);}else{msg.innerHTML='<span style=color:#fca5a5>Wrong email/password or signup first</span>';}
+ }
 }
-async function google(){
- await client.auth.signInWithOAuth({provider:'google',options:{redirectTo:window.location.href}});
-}
-function show(user){
+function show(email){
  document.getElementById('authBox').style.display='none';
  document.getElementById('dash').style.display='block';
- document.getElementById('uemail').innerText=user.email;
+ document.getElementById('uemail').innerText=email;
+ localStorage.setItem('orbit_logged',email);
 }
-async function check(){
- const {data}=await client.auth.getSession();
- if(data.session) show(data.session.user);
-}
-async function logout(){await client.auth.signOut();location.reload();}
-check();
+function logout(){localStorage.removeItem('orbit_logged');location.reload();}
+let logged=localStorage.getItem('orbit_logged');
+if(logged){show(logged);}
 </script>
 </body>
 </html>
