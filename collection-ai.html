@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orbittroniz - Sunita AI Collection</title>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>body{font-family:'Inter',sans-serif}</style>
+</head>
+<body class="bg-[#0a0a0b] text-white min-h-screen p-4">
+
+<div class="max-w-6xl mx-auto">
+  <div class="flex justify-between items-center mb-6">
+    <div>
+      <h1 class="text-xl font-bold">Sunita AI <span class="text-zinc-500 text-xs">Collection Employee</span></h1>
+      <p class="text-zinc-400 text-xs mt-1">Upload list → AI decides who to call → Saves loss</p>
+    </div>
+    <div class="bg-green-500/10 border border-green-500/20 px-3 py-1 rounded-full text-green-400 text-[10px]">● LIVE</div>
+  </div>
+
+  <div class="grid grid-cols-3 gap-2 mb-5">
+    <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-3"><p class="text-zinc-500 text-[10px]">TOTAL</p><p id="totalCount" class="text-xl font-bold">0</p></div>
+    <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-3"><p class="text-zinc-500 text-[10px]">HIGH RISK</p><p id="highRiskCount" class="text-xl font-bold text-red-400">0</p></div>
+    <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-3"><p class="text-zinc-500 text-[10px]">RISK VALUE</p><p id="savedAmount" class="text-xl font-bold text-green-400">₹0</p></div>
+  </div>
+
+  <div class="bg-zinc-900 border border-dashed border-zinc-700 rounded-xl p-6 text-center mb-5" id="dropZone">
+    <h3 class="font-semibold text-sm">Upload Overdue List</h3>
+    <p class="text-zinc-500 text-xs mt-1">Excel: Name, Phone, Amount, DueDate</p>
+    <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" class="hidden">
+    <button onclick="document.getElementById('fileInput').click()" class="mt-3 bg-white text-black px-5 py-2 rounded-full text-xs font-bold">Select Excel</button>
+    <div class="mt-2"><button onclick="loadDummy()" class="text-xs text-zinc-400 underline">Load Dummy Data</button></div>
+  </div>
+
+  <div class="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden hidden" id="tableWrap">
+    <div class="p-3 border-b border-zinc-800 flex justify-between"><h3 class="font-semibold text-xs">AI Risk Analysis</h3><button class="bg-zinc-800 text-zinc-500 px-3 py-1 rounded-full text-[10px]" disabled>Day 2: AI Calling</button></div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-xs">
+        <thead class="bg-zinc-950 text-zinc-500"><tr><th class="p-2 text-left">CUSTOMER</th><th class="p-2">PHONE</th><th class="p-2">AMOUNT</th><th class="p-2">RISK</th><th class="p-2">ACTION</th></tr></thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+function calculateRisk(amount, dueDateStr) {
+  let risk = 30;
+  const due = new Date(dueDateStr);
+  const today = new Date();
+  const diffDays = Math.floor((today - due) / (1000*60*60*24));
+  if(diffDays > 0) risk += diffDays * 8;
+  if(amount > 10000) risk += 15;
+  if(amount < 2000) risk -= 10;
+  return Math.min(98, Math.max(12, risk));
+}
+function getAction(risk) {
+  if(risk > 75) return {text: "CALL NOW", color: "text-red-400 bg-red-500/10"};
+  if(risk > 45) return {text: "Call 10AM", color: "text-yellow-400 bg-yellow-500/10"};
+  return {text: "WhatsApp", color: "text-green-400 bg-green-500/10"};
+}
+function renderData(data) {
+  const tbody = document.getElementById('tableBody');
+  tbody.innerHTML = '';
+  let high = 0, totalSaved = 0;
+  data.forEach(row => {
+    const risk = calculateRisk(row.Amount, row.DueDate);
+    if(risk > 70) high++;
+    totalSaved += Number(row.Amount) || 0;
+    const act = getAction(risk);
+    tbody.innerHTML += `<tr class="border-t border-zinc-800"><td class="p-2 font-medium">${row.Name||'Unknown'}</td><td class="p-2 text-zinc-400">${row.Phone||''}</td><td class="p-2">₹${row.Amount||0}</td><td class="p-2"><span class="px-2 py-1 rounded-full text-[10px] font-bold ${risk>70?'bg-red-500/20 text-red-400':risk>45?'bg-yellow-500/20 text-yellow-400':'bg-green-500/20 text-green-400'}">${risk}%</span></td><td class="p-2"><span class="px-2 py-1 rounded-full text-[10px] ${act.color}">${act.text}</span></td></tr>`;
+  });
+  document.getElementById('totalCount').innerText = data.length;
+  document.getElementById('highRiskCount').innerText = high;
+  document.getElementById('savedAmount').innerText = '₹' + (totalSaved * 0.3).toFixed(0);
+  document.getElementById('tableWrap').classList.remove('hidden');
+}
+function loadDummy() {
+  const dummy = [
+    {Name:"Ramesh Kumar", Phone:"98xxxxxx10", Amount:5000, DueDate:"2026-10-14"},
+    {Name:"Priya Singh", Phone:"98xxxxxx11", Amount:12000, DueDate:"2026-10-10"},
+    {Name:"Amit Patel", Phone:"98xxxxxx12", Amount:2500, DueDate:"2026-10-17"},
+  ];
+  renderData(dummy);
+}
+document.getElementById('fileInput').addEventListener('change', function(e){
+  const file = e.target.files[0];
+  const reader = new FileReader();
+  reader.onload = function(evt){
+    const wb = XLSX.read(evt.target.result, {type:'binary'});
+    const ws = wb.Sheets[wb.SheetNames[0]];
+    const json = XLSX.utils.sheet_to_json(ws);
+    renderData(json);
+  };
+  reader.readAsBinaryString(file);
+});
+</script>
+</body>
+</html>
