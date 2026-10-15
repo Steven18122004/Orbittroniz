@@ -1,147 +1,53 @@
 <!DOCTYPE html>
 <html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Orbittroniz - Walk Studio</title>
+<title>Orbittroniz</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Outfit',sans-serif}
-body{min-height:100vh;background:#020412;overflow-x:hidden}
-.bg{position:fixed;inset:0;background:radial-gradient(ellipse at 50% -10%, #1e3a8a 0%, #0f1a4a 30%, #020412 70%)}
-/* LOCKED LOGIN */
-.scene{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;perspective:1000px;min-height:65vh}
-.orb-wrap{position:relative;width:260px;height:260px;animation:floatMain 6s ease-in-out infinite}
-@keyframes floatMain{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
-.sphere{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.25), rgba(96,165,250,0.15) 20%, rgba(30,58,138,0.4) 60%, rgba(2,4,18,0.9) 90%);box-shadow:0 0 80px rgba(59,130,246,0.5);border:1px solid rgba(147,197,253,0.2)}
-.chip{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:88px;height:88px;background:linear-gradient(135deg, #0f172a, #1e293b);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.chip b{font-size:34px;color:#38bdf8;font-weight:800}
-.chip span{font-size:7px;letter-spacing:2px;color:#60a5fa}
-.ring{position:absolute;top:50%;left:50%;width:140%;height:32%;border-radius:50%;border-top:2px solid rgba(59,130,246,0.8);transform:translate(-50%,-50%) rotateX(75deg);animation:ringRotate 8s linear infinite}
-@keyframes ringRotate{to{transform:translate(-50%,-50%) rotateX(75deg) rotateZ(360deg)}}
-.form-wrap{position:relative;z-index:3;background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(2,4,18,0.95));backdrop-filter:blur(40px);border-top:1px solid rgba(255,255,255,0.08);border-radius:32px 32px 0 0;padding:28px 22px 32px}
+body{min-height:100vh;min-height:100dvh;background:#020412;overflow:hidden;display:flex;flex-direction:column}
+.bg{position:fixed;inset:0;background:radial-gradient(ellipse at 50% -10%, #1e3a8a 0%, #0f1a4a 25%, #020412 70%)}
+.stars{position:fixed;inset:0;opacity:0.5;background-image:radial-gradient(1px 1px at 20% 30%, #3b82f6, transparent),radial-gradient(1px 1px at 80% 20%, #60a5fa, transparent),radial-gradient(1.5px 1.5px at 40% 70%, #6366f1, transparent)}
+.scene{position:relative;z-index:2;flex:1;display:flex;align-items:center;justify-content:center;perspective:1000px}
+.orb-wrap{position:relative;width:260px;height:260px;animation:floatMain 6s ease-in-out infinite;transform-style:preserve-3d}
+@keyframes floatMain{0%,100%{transform:translateY(0) rotateX(5deg)}50%{transform:translateY(-18px) rotateX(-5deg)}}
+.sphere{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.25), rgba(96,165,250,0.15) 20%, rgba(30,58,138,0.4) 60%, rgba(2,4,18,0.9) 90%);box-shadow:inset -20px -20px 40px rgba(0,0,0,0.8), inset 10px 10px 30px rgba(147,197,253,0.3), 0 0 80px rgba(59,130,246,0.5), 0 0 120px rgba(59,130,246,0.2);border:1px solid rgba(147,197,253,0.2)}
+.chip{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:88px;height:88px;background:linear-gradient(135deg, #0f172a, #1e293b);border:1px solid rgba(59,130,246,0.4);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(59,130,246,0.5), inset 0 1px 0 rgba(255,255,255,0.1)}
+.chip b{font-size:34px;color:#38bdf8;text-shadow:0 0 12px #38bdf8;font-weight:800}
+.chip span{font-size:7px;letter-spacing:2px;color:#60a5fa;margin-top:2px;font-weight:700}
+.circuit{position:absolute;inset:18px;border-radius:50%;border:1px dashed rgba(59,130,246,0.15);animation:spin 20s linear infinite}
+.circuit2{position:absolute;inset:-6px;border-radius:50%;border:1px dashed rgba(99,102,241,0.12);animation:spin 30s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ring{position:absolute;top:50%;left:50%;width:140%;height:32%;border-radius:50%;border-top:2px solid rgba(59,130,246,0.8);border-bottom:1px solid rgba(251,146,60,0.4);transform:translate(-50%,-50%) rotateX(75deg) rotateZ(-15deg);box-shadow:0 0 20px rgba(59,130,246,0.4);animation:ringRotate 8s linear infinite}
+.ring2{width:150%;height:36%;transform:translate(-50%,-50%) rotateX(75deg) rotateZ(25deg);opacity:0.6;animation-duration:12s}
+@keyframes ringRotate{0%{transform:translate(-50%,-50%) rotateX(75deg) rotateZ(0deg)}100%{transform:translate(-50%,-50%) rotateX(75deg) rotateZ(360deg)}}
+.form-wrap{position:relative;z-index:3;background:linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(2,4,18,0.95) 100%);backdrop-filter:blur(40px);border-top:1px solid rgba(255,255,255,0.08);border-radius:32px 32px 0 0;padding:28px 22px 32px;box-shadow:0 -20px 80px rgba(0,0,0,0.6)}
 h1{font-size:34px;font-weight:800;text-align:center;background:linear-gradient(180deg, #fff, #93c5fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .sub{color:#64748b;text-align:center;font-size:14px;margin:6px 0 20px}
 .tabs{display:flex;background:rgba(0,0,0,0.5);border-radius:14px;padding:4px;margin-bottom:18px}
-.tab{flex:1;padding:12px;text-align:center;border-radius:10px;font-weight:700;font-size:14px;color:#475569;cursor:pointer}.tab.a{background:#fff;color:#000}
+.tab{flex:1;padding:12px;text-align:center;border-radius:10px;font-weight:700;font-size:14px;color:#475569;cursor:pointer}
+.tab.a{background:#fff;color:#000}
 input{width:100%;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.08);border-radius:14px;padding:15px;color:#fff;font-size:15px;margin-bottom:12px;outline:none}
-.btn{width:100%;background:#fff;color:#000;border:none;border-radius:14px;padding:15px;font-weight:800;cursor:pointer}
-
-/* WALK STUDIO */
-.tool-wrap{display:none;position:relative;z-index:3;min-height:100vh;padding:14px}
-.header{display:flex;justify-content:space-between;align-items:center;padding:10px 4px}
-.card3d{perspective:1200px}
-.video-box{position:relative;width:100%;aspect-ratio:16/10;background:#000;border:1px solid rgba(255,255,255,0.1);border-radius:22px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.6)}
-.video-box canvas,.video-box video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.upload{position:absolute;inset:0;z-index:10;background:rgba(2,4,18,0.92);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;border:2px dashed rgba(59,130,246,0.3);border-radius:22px}
-.controls{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:14px;margin-top:12px}
-.prompt{width:100%;background:rgba(0,0,0,0.5);border:1.5px solid rgba(59,130,246,0.3);border-radius:14px;padding:12px;color:#fff;font-size:14px;min-height:64px;resize:none;outline:none}
-.row{display:flex;justify-content:space-between;align-items:center;margin:10px 0}
-.row label{color:#cbd5e1;font-size:12px}
-.row input[type=range]{width:120px;accent-color:#3b82f6}
-.pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-.pill{padding:7px 12px;border-radius:100px;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.1);color:#94a3b8;font-size:11px;cursor:pointer}.pill.on{background:#3b82f6;color:#fff;border-color:#3b82f6}
-.btns{display:flex;gap:10px;margin-top:12px}
-.btn-p{flex:1;background:linear-gradient(90deg, #3b82f6, #6366f1);color:#fff;border:none;border-radius:14px;padding:14px;font-weight:700}
-.btn-g{flex:1;background:rgba(255,255,255,0.06);color:#fff;border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:14px}
+input:focus{border-color:#3b82f6;background:rgba(255,255,255,0.09)}
+.btn{width:100%;background:#fff;color:#000;border:none;border-radius:14px;padding:15px;font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,0.3)}
+.btn2{background:linear-gradient(90deg, #3b82f6, #6366f1);color:#fff;margin-top:8px}
+.msg{text-align:center;font-size:13px;min-height:18px;margin-top:10px}
+.hide{display:none}
 </style></head><body>
-<div class="bg"></div>
-
-<div id="loginScreen">
-<div class="scene"><div class="orb-wrap"><div class="ring"></div><div class="sphere"></div><div class="chip"><b>O</b><span>ORBITTRONIZ</span></div></div></div>
-<div class="form-wrap"><h1>Orbittroniz</h1><p class="sub">AI Walk Studio • Real Footage Engine</p><div class="tabs"><div class="tab" id="tL" onclick="M('login')">Login</div><div class="tab a" id="tS" onclick="M('signup')">Sign Up</div></div><input id="e" placeholder="Email"><input id="p" type="password" placeholder="Password"><button class="btn" id="b" onclick="H()">Create Account →</button><div id="m" style="text-align:center;font-size:13px;margin-top:10px;min-height:18px"></div></div>
+<div class="bg"></div><div class="stars"></div>
+<div class="scene"><div class="orb-wrap"><div class="circuit"></div><div class="circuit2"></div><div class="ring"></div><div class="ring ring2"></div><div class="sphere"></div><div class="chip"><b>O</b><span>ORBITTRONIZ</span></div></div></div>
+<div class="form-wrap" id="aBox">
+<h1>Orbittroniz</h1><p class="sub">Your AI creative universe • No watermark</p>
+<div class="tabs"><div class="tab" id="tL" onclick="M('login')">Login</div><div class="tab a" id="tS" onclick="M('signup')">Sign Up</div></div>
+<input id="e" placeholder="Email address"><input id="p" type="password" placeholder="Password • min 6 chars"><button class="btn" id="b" onclick="H()">Create Account →</button><div class="msg" id="m"></div>
 </div>
-
-<div id="toolScreen" class="tool-wrap">
-<div class="header"><div><b style="color:#fff">Walk Studio</b><br><span id="ue" style="color:#3b82f6;font-size:12px"></span></div><span onclick="logout()" style="cursor:pointer;color:#64748b;background:rgba(255,255,255,0.06);padding:8px 14px;border-radius:100px;font-size:12px">Logout</span></div>
-
-<div class="card3d"><div class="video-box" id="vbox">
-<canvas id="genCanvas"></canvas>
-<video id="outVideo" controls loop playsinline style="display:none"></video>
-<div class="upload" id="upZone" onclick="document.getElementById('f').click()"><div style="font-size:46px">🦁</div><b style="color:#fff;margin:8px">Upload Lion / Any Animal</b><span style="color:#64748b;font-size:11px">Then type: make it walk in jungle real footage</span></div>
-</div></div>
-
-<div class="controls">
-<textarea id="prompt" class="prompt">make this lion walk in jungle real footage, cinematic National Geographic, morning fog, camera follows from side, ultra realistic fur movement, 4K</textarea>
-<div class="row"><label>Walk Speed</label><input id="speed" type="range" min="0" max="100" value="55"><span style="color:#3b82f6;font-size:11px" id="spd">Medium</span></div>
-<div class="row"><label>Camera Motion</label><input id="cam" type="range" min="0" max="100" value="70"></div>
-<div class="row"><label>Realism / Human Effect</label><input id="real" type="range" min="0" max="100" value="85"><span style="color:#94a3b8;font-size:11px">Real Footage</span></div>
-<div class="pills">
-<div class="pill on" onclick="toggle(this)" data-v="jungle">🌿 Jungle BG</div>
-<div class="pill on" onclick="toggle(this)" data-v="fog">🌫️ Fog</div>
-<div class="pill on" onclick="toggle(this)" data-v="dust">💨 Dust Particles</div>
-<div class="pill" onclick="toggle(this)" data-v="human">🧍 Human Walk (2 legs)</div>
-<div class="pill on" onclick="toggle(this)" data-v="follow">🎥 Follow Cam</div>
-<div class="pill" onclick="toggle(this)" data-v="roar">🦁 Auto Roar Sound</div>
+<div class="form-wrap hide" id="dBox" style="display:none;text-align:center">
+<h1>Welcome 👋</h1><p class="sub" id="ue"></p><p style="color:#4ade80;margin:14px 0">✅ Login Successful</p><button class="btn btn2" onclick="logout()">Logout</button>
 </div>
-<div class="btns"><button class="btn-g" onclick="document.getElementById('f').click()">Change Image</button><button class="btn-p" id="genBtn" onclick="generateVideo()">▶ Generate Real Walk Video</button></div>
-<div style="text-align:center;color:#475569;font-size:10px;margin-top:8px">Working offline • No watermark • Exports MP4 4K • 8 sec</div>
-</div>
-<input type="file" id="f" accept="image/*" hidden onchange="loadImg(event)">
-</div>
-
 <script>
-// LOGIN LOCKED
-let mode='signup'; function M(m){mode=m;document.getElementById('tL').className=m=='login'?'tab a':'tab';document.getElementById('tS').className=m=='signup'?'tab a':'tab';document.getElementById('b').innerText=m=='login'?'Login →':'Create Account →'}
-function H(){let e=document.getElementById('e').value.trim(),p=document.getElementById('p').value,m=document.getElementById('m');if(!e.includes('@')||p.length<6){m.innerHTML='<span style=color:#fca5a5>Valid email + 6 char</span>';return}if(mode=='signup'){localStorage.setItem('oU',JSON.stringify({e,p}));m.innerHTML='<span style=color:#4ade80>✓ Created!</span>';setTimeout(()=>S(e),300)}else{let u=JSON.parse(localStorage.getItem('oU')||'null');if(u&&u.e==e&&u.p==p)S(e);else m.innerHTML='<span style=color:#fca5a5>Wrong</span>'}}
-function S(email){document.getElementById('loginScreen').style.display='none';document.getElementById('toolScreen').style.display='block';document.getElementById('ue').innerText=email;localStorage.setItem('oL',email)}
+let mode='signup';
+function M(m){mode=m;document.getElementById('tL').className=m=='login'?'tab a':'tab';document.getElementById('tS').className=m=='signup'?'tab a':'tab';document.getElementById('b').innerText=m=='login'?'Login →':'Create Account →';}
+function H(){let e=document.getElementById('e').value.trim(),p=document.getElementById('p').value,m=document.getElementById('m');if(!e.includes('@')||p.length<6){m.innerHTML='<span style=color:#fca5a5>Valid email + 6 char pass</span>';return}if(mode=='signup'){localStorage.setItem('oU',JSON.stringify({e,p}));m.innerHTML='<span style=color:#4ade80>✓ Account created</span>';setTimeout(()=>S(e),500)}else{let u=JSON.parse(localStorage.getItem('oU')||'null');if(u&&u.e==e&&u.p==p)S(e);else m.innerHTML='<span style=color:#fca5a5>Wrong or signup first</span>'}}
+function S(email){document.getElementById('aBox').style.display='none';let d=document.getElementById('dBox');d.style.display='block';d.classList.remove('hide');document.getElementById('ue').innerText=email;localStorage.setItem('oL',email)}
 function logout(){localStorage.removeItem('oL');location.reload()}
-let L=localStorage.getItem('oL'); if(L) S(L);
-
-// WALK VIDEO ENGINE - REAL WORKING VIDEO EXPORT
-let img=null, opts={jungle:true,fog:true,dust:true,human:false,follow:true,roar:false};
-function toggle(el){el.classList.toggle('on'); opts[el.dataset.v]=el.classList.contains('on');}
-let c=document.getElementById('genCanvas'), ctx=c.getContext('2d'), video=document.getElementById('outVideo');
-function loadImg(e){
-let file=e.target.files[0]; if(!file) return;
-let r=new FileReader(); r.onload=()=>{img=new Image(); img.onload=()=>{document.getElementById('upZone').style.display='none'; c.width=1280; c.height=720; drawFrame(0,true)}; img.src=r.result}; r.readAsDataURL(file);
-}
-function drawFrame(t,first=false){
-let w=c.width, h=c.height;
-let speed=document.getElementById('speed').value/100, cam=document.getElementById('cam').value/100, real=document.getElementById('real').value/100;
-// Jungle BG
-if(opts.jungle){
-let grad=ctx.createLinearGradient(0,0,0,h); grad.addColorStop(0,'#0a2a12'); grad.addColorStop(0.5,'#143d1d'); grad.addColorStop(1,'#0f2e14'); ctx.fillStyle=grad; ctx.fillRect(0,0,w,h);
-// trees parallax
-ctx.fillStyle='rgba(0,0,0,0.25)'; for(let i=0;i<8;i++){ let x=(i*200 - (t*60*cam)%200 + w)%w; ctx.fillRect(x,0,30,h); }
-} else { ctx.fillStyle='#020412'; ctx.fillRect(0,0,w,h);}
-// Lion walk animation
-let walkPhase=t* (0.1+speed*0.15);
-let bob=Math.sin(walkPhase*6)*8;
-let stepX=Math.sin(walkPhase*2)*6;
-let scale=0.65 + (opts.human?0.1:0);
-let cx=w*0.5 + (opts.follow?Math.sin(t*0.3)*40:0);
-let cy=h*0.62 + bob;
-ctx.save(); ctx.translate(cx+stepX,cy);
-if(opts.human){ ctx.rotate(Math.sin(walkPhase)*0.05); ctx.scale(1,1+Math.sin(walkPhase*2)*0.03); } else { ctx.scale(1,1+Math.sin(walkPhase*4)*0.02); }
-let iw=img.width, ih=img.height, r=Math.min(w*scale/iw, h*0.6/ih); ctx.drawImage(img, -iw*r/2, -ih*r/2, iw*r, ih*r);
-ctx.restore();
-// fog
-if(opts.fog){ ctx.fillStyle=`rgba(200,230,200,${0.08+Math.sin(t)*0.03})`; ctx.fillRect(0,h*0.55,w,h*0.45); }
-// dust
-if(opts.dust){ ctx.fillStyle='rgba(255,255,200,0.6)'; for(let i=0;i<15;i++){ let dx=(Math.sin(t+i)*w + i*80)%w; let dy=h*0.7+Math.sin(t*2+i)*40; ctx.beginPath(); ctx.arc(dx,dy,1.5,0,Math.PI*2); ctx.fill(); } }
-if(first){ ctx.fillStyle='#fff'; ctx.font='12px Outfit'; ctx.fillText('Ready to generate video',20,30); }
-}
-async function generateVideo(){
-if(!img){alert('Upload lion image first');return}
-let btn=document.getElementById('genBtn'); btn.innerText='⏳ Generating real footage...'; btn.disabled=true;
-c.style.display='block'; video.style.display='none';
-let stream=c.captureStream(30);
-let chunks=[]; let rec=new MediaRecorder(stream,{mimeType:'video/webm;codecs=vp9'});
-rec.ondataavailable=e=>{if(e.data.size>0) chunks.push(e.data)};
-rec.onstop=()=>{
-let blob=new Blob(chunks,{type:'video/webm'});
-let url=URL.createObjectURL(blob);
-video.src=url; video.style.display='block'; c.style.display='none';
-btn.innerText='▶ Generate Real Walk Video'; btn.disabled=false;
-// auto download MP4-like
-let a=document.createElement('a'); a.href=url; a.download='orbittroniz-lion-walk-'+Date.now()+'.webm'; a.click();
-};
-rec.start();
-let start=performance.now();
-function loop(now){
-let t=(now-start)/1000;
-drawFrame(t);
-if(t<8) requestAnimationFrame(loop); else rec.stop();
-}
-requestAnimationFrame(loop);
-}
-document.getElementById('speed').oninput=e=>{let v=e.target.value; document.getElementById('spd').innerText=v<33?'Slow':v<66?'Medium':'Fast'};
+let L=localStorage.getItem('oL');if(L)S(L);
 </script></body></html>
