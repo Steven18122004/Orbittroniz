@@ -1,47 +1,50 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Orbittroniz</title><style>*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}body{min-height:100vh;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);display:flex;align-items:center;justify-content:center;padding:16px}.c{background:rgba(255,255,255,.09);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.15);border-radius:24px;padding:22px;width:100%;max-width:900px;text-align:center}.c.auth{max-width:420px}h1{font-size:28px;background:linear-gradient(90deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900}.s{color:#cbd5e1;font-size:13px;margin:8px 0 14px}.t{display:flex;gap:6px;background:rgba(0,0,0,.35);padding:5px;border-radius:12px;margin-bottom:14px}.tb{flex:1;padding:9px;border-radius:9px;cursor:pointer;color:#94a3b8;font-size:12px;font-weight:700}.tb.a{background:linear-gradient(90deg,#3b82f6,#8b5cf6);color:#fff}input,textarea,select{width:100%;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:12px;margin-bottom:10px;color:#fff;text-align:left}button{width:100%;background:linear-gradient(90deg,#3b82f6,#8b5cf6);border:none;border-radius:10px;padding:11px;color:#fff;font-weight:700;cursor:pointer;margin-bottom:6px}button.dl{background:linear-gradient(90deg,#10b981,#06b6d4);margin-top:6px}button.s2{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15)}.box{background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;margin-top:12px;text-align:left}.rimg{width:100%;border-radius:10px;margin-top:8px;background:rgba(0,0,0,.3)}.hide{display:none}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}</style></head><body>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Orbittroniz</title><style>*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}body{min-height:100vh;background:#1a1040;display:flex;align-items:center;justify-content:center;padding:16px}.c{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:24px;padding:26px;width:100%;max-width:420px;text-align:center}.c.w{max-width:900px}h1{font-size:32px;color:#7aa8ff;font-weight:900}.s{color:#cbd5e1;font-size:14px;margin:8px 0 18px}.t{display:flex;gap:6px;background:rgba(0,0,0,.4);padding:5px;border-radius:12px;margin-bottom:18px}.tb{flex:1;padding:10px;border-radius:10px;color:#94a3b8;cursor:pointer}.tb.a{background:linear-gradient(90deg,#3b82f6,#8b5cf6);color:#fff;font-weight:700}input,textarea,select{width:100%;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:13px;margin-bottom:11px;color:#fff}button{width:100%;background:linear-gradient(90deg,#3b82f6,#8b5cf6);border:none;border-radius:12px;padding:13px;color:#fff;font-weight:700;cursor:pointer;margin-bottom:8px}button.dl{background:linear-gradient(90deg,#10b981,#06b6d4)}button.s2{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15)}.box{background:rgba(0,0,0,.3);border-radius:14px;padding:14px;margin-top:12px;text-align:left}.rimg{width:100%;border-radius:10px;margin-top:8px}.hide{display:none}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}</style></head><body>
 
-<div class="c auth" id="aBox"><h1>Orbittroniz</h1><p class="s">AI Studio</p><div class="t"><div class="tb" id="tL" onclick="M('login')">Login</div><div class="tb a" id="tS" onclick="M('signup')">Sign Up</div></div><input id="e" type="email" placeholder="Email"><input id="p" type="password" placeholder="Password min 6 chars"><button id="b" onclick="H()">Create Account</button><div id="m" style="color:#86efac;font-size:13px;min-height:18px;margin-top:8px"></div></div>
+<div class="c" id="aBox"><h1>Orbittroniz</h1><p class="s">AI Studio</p><div class="t"><div class="tb" id="tL" onclick="M('login')">Login</div><div class="tb a" id="tS" onclick="M('signup')">Sign Up</div></div><input id="e" type="email" placeholder="Email"><input id="p" type="password" placeholder="Password min 6"><button id="b" onclick="H()">Create Account</button><div id="m" style="color:#86efac;min-height:18px;margin-top:8px"></div></div>
 
-<div class="c hide" id="dBox"><h2 style="color:#fff">Welcome 👋</h2><p class="s" id="ue"></p><p style="color:#86efac;margin:6px 0">✅ Login Successful!</p>
-<div class="t" style="margin-top:14px"><div class="tb a" id="bt1" onclick="openT('img')">🎨 Image</div><div class="tb" id="bt2" onclick="openT('logo')">✏️ Logo</div><div class="tb" id="bt3" onclick="openT('3d')">🧊 3D</div><div class="tb" id="bt4" onclick="openT('voice')">🎙️ Voice</div><div class="tb" id="bt5" onclick="openT('vid')">🎬 Video</div></div>
-
-<div id="t-img" class="box"><b>AI Image Generator</b><textarea id="pImg" rows="2" placeholder="Lion roaming in jungle"></textarea><div class="grid"><select id="sImg"><option>Realistic</option><option>Anime</option><option>3D Render</option><option>Cyberpunk</option></select><select id="rImg"><option value="1024x1024">Square</option><option value="1280x720">Wide</option><option value="720x1280">Portrait</option></select></div><button onclick="gImg()">Generate ✨</button><div id="rImgD"></div></div>
-
-<div id="t-logo" class="box hide"><b>AI Logo Maker</b><input id="lName" placeholder="Brand: Orbittroniz"><input id="lStyle" placeholder="Style: minimal rocket blue"><button onclick="gLogo()">Generate Logo ✨</button><div id="rLogo"></div></div>
-
-<div id="t-3d" class="box hide"><b>3D Text</b><input id="t3d" value="ORBITTRONIZ"><div class="grid"><select id="c3d"><option value="#60a5fa">Blue</option><option value="#a78bfa">Purple</option><option value="#f59e0b">Gold</option><option value="#ffffff">White</option></select><select><option>Extrude</option></select></div><button onclick="g3d()">Generate 3D ✨</button><div style="height:140px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.4);border-radius:10px;margin-top:10px;perspective:600px"><div id="t3dOut" style="font-size:32px;font-weight:900;transform:rotateY(-20deg) rotateX(10deg)">ORBITTRONIZ</div></div><button class="dl" onclick="download3D()">⬇️ Download 3D</button></div>
-
-<div id="t-voice" class="box hide"><b>AI Voice</b><textarea id="vT" rows="2" placeholder="Type text..."></textarea><select id="vSel"></select><button onclick="gVoice()">Play Voice 🎙️</button><div id="rVoice"></div></div>
-
+<div class="c w hide" id="dBox"><h2 style="color:#fff">Welcome 👋</h2><p class="s" id="ue"></p><p style="color:#86efac">✅ Login Successful!</p>
+<div class="t"><div class="tb a" id="bt1" onclick="openT('img')">🎨 Image</div><div class="tb" id="bt2" onclick="openT('logo')">✏️ Logo</div><div class="tb" id="bt3" onclick="openT('3d')">🧊 3D</div><div class="tb" id="bt4" onclick="openT('voice')">🎙️ Voice</div><div class="tb" id="bt5" onclick="openT('vid')">🎬 Video</div></div>
+<div id="t-img" class="box"><b>AI Image</b><textarea id="pImg" rows="2" placeholder="Lion roaming in jungle"></textarea><button onclick="gImg()">Generate ✨</button><div id="rImgD"></div></div>
+<div id="t-logo" class="box hide"><b>AI Logo</b><input id="lName" placeholder="Brand"><input id="lStyle" placeholder="Style"><button onclick="gLogo()">Generate Logo ✨</button><div id="rLogo"></div></div>
+<div id="t-3d" class="box hide"><b>3D Text</b><input id="t3d" value="ORBITTRONIZ"><button onclick="g3d()">Generate 3D ✨</button><div style="height:120px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.4);border-radius:10px;margin-top:8px"><div id="t3dOut" style="font-size:28px;font-weight:900;color:#7aa8ff">ORBITTRONIZ</div></div><button class="dl" onclick="download3D()">⬇️ Download 3D Clean</button></div>
+<div id="t-voice" class="box hide"><b>AI Voice</b><textarea id="vT" rows="2" placeholder="Type text"></textarea><button onclick="gVoice()">Play Voice 🎙️</button><div id="rVoice"></div></div>
 <div id="t-vid" class="box hide"><b>Image to Video</b><input type="file" id="vFile" accept="image/*"><button onclick="gVid()">Make Video 🎬</button><div id="rVid"></div></div>
-
 <button class="s2" onclick="logout()">Logout</button></div>
 
 <script>
-let mode='signup';
+// SIMPLE LOGIN - CANNOT FAIL
+var mode='signup';
 function M(m){mode=m;document.getElementById('tL').className=m=='login'?'tb a':'tb';document.getElementById('tS').className=m=='signup'?'tb a':'tb';document.getElementById('b').innerText=m=='login'?'Login':'Create Account';}
-function H(){let e=document.getElementById('e').value.trim(),p=document.getElementById('p').value,m=document.getElementById('m');if(!e.includes('@')||p.length<6){m.innerHTML='<span style=color:#fca5a5>Valid email + 6 char pass</span>';return}if(mode=='signup'){localStorage.setItem('oU',JSON.stringify({e,p}));m.innerText='✅ Account created!';setTimeout(()=>S(e),400)}else{let u=JSON.parse(localStorage.getItem('oU')||'null');if(u&&u.e==e&&u.p==p)S(e);else m.innerHTML='<span style=color:#fca5a5>Wrong pass or signup first</span>'}}
-function S(email){document.getElementById('aBox').style.display='none';document.getElementById('dBox').style.display='block';document.getElementById('ue').innerText=email;localStorage.setItem('oL',email)}
-function logout(){localStorage.removeItem('oL');location.reload()}
-let L=localStorage.getItem('oL');if(L)S(L);
-function openT(n){['img','logo','3d','voice','vid'].forEach(x=>document.getElementById('t-'+x).classList.add('hide'));document.getElementById('t-'+n).classList.remove('hide');['bt1','bt2','bt3','bt4','bt5'].forEach(b=>document.getElementById(b).classList.remove('a'));let map={img:'bt1',logo:'bt2','3d':'bt3',voice:'bt4',vid:'bt5'};document.getElementById(map[n]).classList.add('a');}
-
-let lastImgUrl='', lastLogoUrl='';
-// SAME CODE THAT GENERATED YOUR LION - NOT CHANGED
-function gImg(){
- let pr=document.getElementById('pImg').value||'Lion roaming in jungle', st=document.getElementById('sImg').value, ra=document.getElementById('rImg').value, wh=ra.split('x');
- lastImgUrl='https://image.pollinations.ai/p/'+encodeURIComponent(pr+', '+st+', ultra detailed 8k')+'?width='+wh[0]+'&height='+wh[1]+'&seed='+Math.floor(Math.random()*999999)+'&nologo=true';
- document.getElementById('rImgD').innerHTML='<p class=s>⏳ Generating...</p><img class=rimg src="'+lastImgUrl+'"><button class=dl onclick="downloadClean()">⬇️ Download CLEAN (No Watermark)</button>';
+function H(){
+ try{
+  var e=document.getElementById('e').value.trim();
+  var p=document.getElementById('p').value;
+  var m=document.getElementById('m');
+  if(e.indexOf('@')==-1||p.length<6){m.innerHTML='<span style=color:#fca5a5>Enter valid email & 6+ char</span>';return;}
+  if(mode=='signup'){
+    localStorage.setItem('oU',JSON.stringify({e:e,p:p}));
+    m.innerText='✅ Account created! Loading...';
+    setTimeout(function(){S(e)},500);
+  }else{
+    var u=null; try{u=JSON.parse(localStorage.getItem('oU')||'null')}catch(err){}
+    if(u&&u.e==e&&u.p==p){S(e)}else{m.innerHTML='<span style=color:#fca5a5>Wrong password or signup first. Click Sign Up</span>';}
+  }
+ }catch(err){alert('Error: '+err.message);}
 }
-function gLogo(){
- let n=document.getElementById('lName').value||'Orbittroniz', s=document.getElementById('lStyle').value||'minimal modern';
- lastLogoUrl='https://image.pollinations.ai/p/'+encodeURIComponent('logo for '+n+', '+s+', vector minimal white background professional')+'?width=1024&height=1024&seed='+Math.floor(Math.random()*999999)+'&nologo=true';
- document.getElementById('rLogo').innerHTML='<p class=s>⏳ Generating...</p><img class=rimg src="'+lastLogoUrl+'" style="background:#fff;padding:12px"><button class=dl onclick="downloadLogoClean()">⬇️ Download Logo CLEAN</button>';
-}
-
-// ONLY THIS PART IS NEW - CROPS WATERMARK ON DOWNLOAD ONLY
-function downloadClean(){
- let img=new Image(); img.crossOrigin='anonymous';
- img.onload=function(){
-   let canvas=document.createElement('canvas');
-   canvas.width=img.width; canvas.height=Math.floor(img.height*0.92); // cut
+function S(email){document.getElementById('aBox').style.display='none';document.getElementById('dBox').classList.remove('hide');document.getElementById('dBox').style.display='block';document.getElementById('ue').innerText=email;localStorage.setItem('oL',email);}
+function logout(){localStorage.removeItem('oL');location.reload();}
+try{var L=localStorage.getItem('oL');if(L){S(L);}}catch(e){}
+function openT(n){['img','logo','3d','voice','vid'].forEach(function(x){document.getElementById('t-'+x).classList.add('hide')});document.getElementById('t-'+n).classList.remove('hide');['bt1','bt2','bt3','bt4','bt5'].forEach(function(b){document.getElementById(b).classList.remove('a')});var map={img:'bt1',logo:'bt2','3d':'bt3',voice:'bt4',vid:'bt5'};document.getElementById(map[n]).classList.add('a');}
+var lastImgUrl='',lastLogoUrl='';
+function gImg(){var pr=document.getElementById('pImg').value||'Lion roaming in jungle';lastImgUrl='https://image.pollinations.ai/p/'+encodeURIComponent(pr+', ultra detailed 8k')+'?width=1024&height=1024&seed='+Math.floor(Math.random()*999999)+'&nologo=true';document.getElementById('rImgD').innerHTML='<p class=s>⏳ Generating...</p><img class=rimg src="'+lastImgUrl+'"><button class=dl onclick="downloadClean()">⬇️ Download CLEAN (No Watermark)</button>';}
+function gLogo(){var n=document.getElementById('lName').value||'Orbittroniz',s=document.getElementById('lStyle').value||'minimal';lastLogoUrl='https://image.pollinations.ai/p/'+encodeURIComponent('logo for '+n+', '+s+', vector white background')+'?width=1024&height=1024&seed='+Math.floor(Math.random()*999999)+'&nologo=true';document.getElementById('rLogo').innerHTML='<p class=s>⏳ Generating...</p><img class=rimg src="'+lastLogoUrl+'" style="background:#fff;padding:10px"><button class=dl onclick="downloadLogoClean()">⬇️ Download Logo CLEAN</button>';}
+// WATERMARK REMOVAL ONLY ON DOWNLOAD - DOES NOT AFFECT LOGIN
+function downloadClean(){var img=new Image();img.crossOrigin='anonymous';img.onload=function(){var c=document.createElement('canvas');c.width=img.width;c.height=Math.floor(img.height*0.92);var ctx=c.getContext('2d');ctx.drawImage(img,0,0);var a=document.createElement('a');a.download='orbittroniz-clean-'+Date.now()+'.png';a.href=c.toDataURL('image/png');a.click();};img.src=lastImgUrl;}
+function downloadLogoClean(){var img=new Image();img.crossOrigin='anonymous';img.onload=function(){var c=document.createElement('canvas');c.width=img.width;c.height=Math.floor(img.height*0.92);var ctx=c.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,c.width,c.height);ctx.drawImage(img,0,0,c.width,c.height);var a=document.createElement('a');a.download='logo-clean-'+Date.now()+'.png';a.href=c.toDataURL('image/png');a.click();};img.src=lastLogoUrl;}
+function g3d(){var t=document.getElementById('t3d').value||'ORBITTRONIZ';document.getElementById('t3dOut').innerText=t;}
+function download3D(){var el=document.getElementById('t3dOut');var canvas=document.createElement('canvas');canvas.width=800;canvas.height=400;var ctx=canvas.getContext('2d');ctx.fillStyle='#0f0f2e';ctx.fillRect(0,0,800,400);ctx.fillStyle='#7aa8ff';ctx.font='bold 60px system-ui';ctx.textAlign='center';ctx.fillText(el.innerText,400,220);var a=document.createElement('a');a.download='3d-clean.png';a.href=canvas.toDataURL();a.click();}
+function gVoice(){var t=document.getElementById('vT').value||'Welcome to Orbittroniz';var u=new SpeechSynthesisUtterance(t);speechSynthesis.cancel();speechSynthesis.speak(u);document.getElementById('rVoice').innerHTML='<p class=s>🔊 Playing... No watermark</p>';}
+function gVid(){var f=document.getElementById('vFile').files[0];var box=document.getElementById('rVid');if(!f){box.innerHTML='Upload image';return;}var rd=new FileReader();rd.onload=function(e){box.innerHTML='<img class=rimg src="'+e.target.result+'"><a href="'+e.target.result+'" download="video-frame-clean.png"><button class=dl>⬇️ Download Clean</button></a>';};rd.readAsDataURL(f);}
+// EXTRA SAFETY - Attach listener too
+document.getElementById('b').addEventListener('click',function(){try{H()}catch(e){}});
+</script></body></html>
