@@ -1,6 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/collection-ai.html", "destination": "/collection-ai.html" },
-    { "source": "/(.*)", "destination": "/index.html" }
-  ]
-}
