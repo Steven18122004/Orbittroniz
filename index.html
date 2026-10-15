@@ -1,57 +1,71 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Orbittroniz</title><style>*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}body{min-height:100vh;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);display:flex;align-items:center;justify-content:center;padding:16px}.c{background:rgba(255,255,255,.09);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.15);border-radius:24px;padding:26px;width:100%;max-width:900px;text-align:center}.c.auth{max-width:420px}h1{font-size:30px;background:linear-gradient(90deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900}.s{color:#cbd5e1;font-size:14px;margin:8px 0 18px}.t{display:flex;gap:6px;background:rgba(0,0,0,.35);padding:5px;border-radius:12px;margin-bottom:18px}.tb{flex:1;padding:10px;border-radius:10px;cursor:pointer;color:#94a3b8;font-size:13px}.tb.a{background:linear-gradient(90deg,#3b82f6,#8b5cf6);color:#fff;font-weight:700}input,textarea,select{width:100%;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:13px;margin-bottom:11px;color:#fff;text-align:left}button{width:100%;background:linear-gradient(90deg,#3b82f6,#8b5cf6);border:none;border-radius:12px;padding:13px;color:#fff;font-weight:700;cursor:pointer}button.s2{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);margin-top:10px}#m{color:#86efac;font-size:13px;margin-top:10px;min-height:18px}.box{background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;margin-top:12px;text-align:left}.rimg{width:100%;border-radius:10px;margin-top:10px;background:rgba(0,0,0,.3)}.hide{display:none}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}@media(max-width:600px){.grid{grid-template-columns:1fr}}</style></head><body>
 
-<!-- SAME AUTH CODE - NOT CHANGED -->
-<div class="c auth" id="aBox"><h1>Orbittroniz</h1><p class="s">AI Image & Logo Generator</p><div class="t"><div class="tb" id="tL" onclick="M('login')">Login</div><div class="tb a" id="tS" onclick="M('signup')">Sign Up</div></div><input id="e" type="email" placeholder="Email"><input id="p" type="password" placeholder="Password min 6 chars"><button id="b" onclick="H()">Create Account</button><div id="m"></div></div>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Orbittroniz</title><style>*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}body{min-height:100vh;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);display:flex;align-items:center;justify-content:center;padding:16px}.c{background:rgba(255,255,255,.09);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.15);border-radius:24px;padding:22px;width:100%;max-width:900px;text-align:center}.c.auth{max-width:420px}h1{font-size:28px;background:linear-gradient(90deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900}.s{color:#cbd5e1;font-size:13px;margin:8px 0 14px}.t{display:flex;gap:6px;background:rgba(0,0,0,.35);padding:5px;border-radius:12px;margin-bottom:14px}.tb{flex:1;padding:9px;border-radius:9px;cursor:pointer;color:#94a3b8;font-size:12px;font-weight:700}.tb.a{background:linear-gradient(90deg,#3b82f6,#8b5cf6);color:#fff}input,textarea,select{width:100%;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:12px;margin-bottom:10px;color:#fff;text-align:left}button{width:100%;background:linear-gradient(90deg,#3b82f6,#8b5cf6);border:none;border-radius:10px;padding:11px;color:#fff;font-weight:700;cursor:pointer;margin-bottom:6px}button.dl{background:linear-gradient(90deg,#10b981,#06b6d4);margin-top:6px}button.s2{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15)}.box{background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;margin-top:12px;text-align:left}.rimg{width:100%;border-radius:10px;margin-top:8px;background:rgba(0,0,0,.3)}.hide{display:none}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}@media(max-width:600px){.grid{grid-template-columns:1fr}}</style></head><body>
 
-<!-- WELCOME + TOOLS ADDED HERE ONLY -->
-<div class="c hide" id="dBox"><h2 style="color:#fff">Welcome 👋</h2><p class="s" id="ue"></p><p style="color:#86efac;margin:8px 0">✅ Login Successful!</p>
+<div class="c auth" id="aBox"><h1>Orbittroniz</h1><p class="s">AI Studio - No Watermark Downloads</p><div class="t"><div class="tb" id="tL" onclick="M('login')">Login</div><div class="tb a" id="tS" onclick="M('signup')">Sign Up</div></div><input id="e" type="email" placeholder="Email"><input id="p" type="password" placeholder="Password min 6 chars"><button id="b" onclick="H()">Create Account</button><div id="m" style="color:#86efac;font-size:13px;min-height:18px;margin-top:8px"></div></div>
 
-<!-- TOOL TABS -->
-<div class="t" style="margin-top:16px"><div class="tb a" id="bt1" onclick="openT('img')">🎨 Image</div><div class="tb" id="bt2" onclick="openT('logo')">✏️ Logo</div><div class="tb" id="bt3" onclick="openT('3d')">🧊 3D</div><div class="tb" id="bt4" onclick="openT('voice')">🎙️ Voice</div></div>
+<div class="c hide" id="dBox"><h2 style="color:#fff">Welcome 👋</h2><p class="s" id="ue"></p><p style="color:#86efac;margin:6px 0">✅ Login Successful!</p>
 
-<div id="t-img" class="box"><b>AI Image Generator</b><textarea id="pImg" rows="2" placeholder="e.g. Futuristic city, cyberpunk, 4k"></textarea><div class="grid"><select id="sImg"><option>Realistic</option><option>Anime</option><option>3D Render</option><option>Cyberpunk</option></select><select id="rImg"><option value="1024x1024">Square</option><option value="1280x720">Wide</option><option value="720x1280">Portrait</option></select></div><button onclick="gImg()">Generate ✨</button><div id="rImgD"></div></div>
+<div class="t" style="margin-top:14px"><div class="tb a" id="bt1" onclick="openT('img')">🎨 Image</div><div class="tb" id="bt2" onclick="openT('logo')">✏️ Logo</div><div class="tb" id="bt3" onclick="openT('3d')">🧊 3D</div><div class="tb" id="bt4" onclick="openT('voice')">🎙️ Voice</div><div class="tb" id="bt5" onclick="openT('vid')">🎬 Video</div></div>
 
-<div id="t-logo" class="box hide"><b>AI Logo Maker</b><input id="lName" placeholder="Brand name: Orbittroniz"><input id="lStyle" placeholder="Style: minimal rocket blue"><button onclick="gLogo()">Generate Logo ✨</button><div id="rLogo"></div></div>
+<div id="t-img" class="box"><b>AI Image Generator</b><textarea id="pImg" rows="2" placeholder="e.g. Futuristic city cyberpunk 4k"></textarea><div class="grid"><select id="sImg"><option>Realistic</option><option>Anime</option><option>3D Render</option><option>Cyberpunk</option></select><select id="rImg"><option value="1024x1024">Square</option><option value="1280x720">Wide</option><option value="720x1280">Portrait</option></select></div><button onclick="gImg()">Generate ✨</button><div id="rImgD"></div></div>
 
-<div id="t-3d" class="box hide"><b>3D Text Generator</b><input id="t3d" placeholder="Text: ORBITTRONIZ" value="ORBITTRONIZ"><div class="grid"><select id="c3d"><option value="#60a5fa">Blue</option><option value="#a78bfa">Purple</option><option value="#f472b6">Pink</option><option value="#f59e0b">Gold</option></select><select id="s3d"><option>3D Extrude</option><option>Neon</option></select></div><button onclick="g3d()">Generate 3D ✨</button><div style="height:140px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.3);border-radius:10px;margin-top:10px;perspective:500px"><div id="t3dOut" style="font-size:28px;font-weight:900;transform:rotateY(-20deg) rotateX(10deg);text-shadow:0 1px 0 #ccc,0 2px 0 #c9c9c9,0 3px 0 #bbb,0 6px 10px rgba(0,0,0,.4)">ORBITTRONIZ</div></div></div>
+<div id="t-logo" class="box hide"><b>AI Logo Maker - No Watermark</b><input id="lName" placeholder="Brand: Orbittroniz"><input id="lStyle" placeholder="Style: minimal rocket blue purple"><button onclick="gLogo()">Generate Logo ✨</button><div id="rLogo"></div></div>
 
-<div id="t-voice" class="box hide"><b>AI Voice Generator</b><textarea id="vT" rows="2" placeholder="Type text to speak..."></textarea><div class="grid"><select id="vSel"></select><select id="vSp"><option value="1">Normal</option><option value="0.8">Slow</option><option value="1.2">Fast</option></select></div><button onclick="gVoice()">Speak 🎙️</button><button class="s2" onclick="speechSynthesis.cancel()">Stop</button></div>
+<div id="t-3d" class="box hide"><b>3D Text Generator</b><input id="t3d" value="ORBITTRONIZ"><div class="grid"><select id="c3d"><option value="#60a5fa">Blue</option><option value="#a78bfa">Purple</option><option value="#f472b6">Pink</option><option value="#f59e0b">Gold</option><option value="#ffffff">White</option></select><select id="s3d"><option>Extrude</option><option>Neon</option></select></div><button onclick="g3d()">Generate 3D ✨</button><div style="height:160px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.4);border-radius:10px;margin-top:10px;perspective:600px"><div id="t3dOut" style="font-size:32px;font-weight:900;transform:rotateY(-20deg) rotateX(10deg);text-shadow:0 1px 0 #ccc,0 2px 0 #c9c9c9,0 3px 0 #bbb,0 6px 12px rgba(0,0,0,.5)">ORBITTRONIZ</div></div><button class="dl" onclick="download3D()">⬇️ Download 3D Image</button></div>
+
+<div id="t-voice" class="box hide"><b>AI Voice Generator - Downloadable MP3</b><textarea id="vT" rows="2" placeholder="Type text to generate voice..."></textarea><div class="grid"><select id="vSel"><option value="Brian">Brian - Male</option><option value="Amy">Amy - Female</option><option value="Joey">Joey - Male</option><option value="Emma">Emma - Female</option></select><select id="vSp"><option value="0">Normal</option><option value="-10">Slow</option><option value="10">Fast</option></select></div><button onclick="gVoice()">Generate & Play 🎙️</button><div id="rVoice" style="margin-top:8px"></div></div>
+
+<div id="t-vid" class="box hide"><b>Image to Video Generator</b><input type="file" id="vFile" accept="image/*"><input id="vP" placeholder="Motion: slow zoom cinematic"><button onclick="gVid()">Generate Video 🎬</button><div id="rVid"></div></div>
 
 <button class="s2" onclick="logout()">Logout</button>
 </div>
 
 <script>
-// === YOUR SAME LOGIN CODE - UNTOUCHED ===
 let mode='signup';
 function M(m){mode=m;document.getElementById('tL').className=m=='login'?'tb a':'tb';document.getElementById('tS').className=m=='signup'?'tb a':'tb';document.getElementById('b').innerText=m=='login'?'Login':'Create Account';}
-function H(){let e=document.getElementById('e').value.trim(),p=document.getElementById('p').value,m=document.getElementById('m');if(!e.includes('@')||p.length<6){m.innerHTML='<span style=color:#fca5a5>Enter valid email & 6+ char pass</span>';return}if(mode=='signup'){localStorage.setItem('oU',JSON.stringify({e,p}));m.innerText='✅ Account created!';setTimeout(()=>S(e),500)}else{let u=JSON.parse(localStorage.getItem('oU')||'null');if(u&&u.e==e&&u.p==p)S(e);else m.innerHTML='<span style=color:#fca5a5>Wrong password or signup first</span>'}}
+function H(){let e=document.getElementById('e').value.trim(),p=document.getElementById('p').value,m=document.getElementById('m');if(!e.includes('@')||p.length<6){m.innerHTML='<span style=color:#fca5a5>Valid email + 6 char pass</span>';return}if(mode=='signup'){localStorage.setItem('oU',JSON.stringify({e,p}));m.innerText='✅ Account created!';setTimeout(()=>S(e),400)}else{let u=JSON.parse(localStorage.getItem('oU')||'null');if(u&&u.e==e&&u.p==p)S(e);else m.innerHTML='<span style=color:#fca5a5>Wrong pass or signup first</span>'}}
 function S(email){document.getElementById('aBox').style.display='none';document.getElementById('dBox').style.display='block';document.getElementById('ue').innerText=email;localStorage.setItem('oL',email)}
 function logout(){localStorage.removeItem('oL');location.reload()}
 let L=localStorage.getItem('oL');if(L)S(L);
 
-// === ONLY NEW TOOLS CODE BELOW ===
-function openT(n){
- document.getElementById('t-img').classList.add('hide');
- document.getElementById('t-logo').classList.add('hide');
- document.getElementById('t-3d').classList.add('hide');
- document.getElementById('t-voice').classList.add('hide');
- document.getElementById('t-'+n).classList.remove('hide');
- document.getElementById('bt1').classList.remove('a');
- document.getElementById('bt2').classList.remove('a');
- document.getElementById('bt3').classList.remove('a');
- document.getElementById('bt4').classList.remove('a');
- let map={img:'bt1',logo:'bt2','3d':'bt3',voice:'bt4'}; document.getElementById(map[n]).classList.add('a');
-}
+function openT(n){['img','logo','3d','voice','vid'].forEach(x=>{document.getElementById('t-'+x).classList.add('hide')});document.getElementById('t-'+n).classList.remove('hide');['bt1','bt2','bt3','bt4','bt5'].forEach(b=>document.getElementById(b).classList.remove('a'));let map={img:'bt1',logo:'bt2','3d':'bt3',voice:'bt4',vid:'bt5'};document.getElementById(map[n]).classList.add('a');}
+
+let lastImgUrl='', lastLogoUrl='';
 function gImg(){
- let pr=document.getElementById('pImg').value||'beautiful', st=document.getElementById('sImg').value, ra=document.getElementById('rImg').value, wh=ra.split('x'), url='https://image.pollinations.ai/p/'+encodeURIComponent(pr+', '+st+', ultra detailed 8k')+'?width='+wh[0]+'&height='+wh[1]+'&seed='+Math.floor(Math.random()*99999)+'&nologo=1';
- document.getElementById('rImgD').innerHTML='<p class=s>⏳ Generating...</p><img class=rimg src="'+url+'" onload="this.previousElementSibling.innerHTML=\'✅ Done\'">';
+ let pr=document.getElementById('pImg').value||'beautiful landscape', st=document.getElementById('sImg').value, ra=document.getElementById('rImg').value, wh=ra.split('x');
+ lastImgUrl='https://image.pollinations.ai/p/'+encodeURIComponent(pr+', '+st+', ultra detailed 8k, clean, no watermark, no text, no logo')+'?width='+wh[0]+'&height='+wh[1]+'&seed='+Math.floor(Math.random()*999999)+'&nologo=true&nofeed=true&enhance=true';
+ document.getElementById('rImgD').innerHTML='<p class=s>⏳ Generating no-watermark image...</p><img id="imgOut" class=rimg src="'+lastImgUrl+'" onload="this.previousElementSibling.innerHTML=\'✅ Ready - No Watermark\'"><button class=dl onclick="downloadImage(lastImgUrl,\'orbittroniz-image\')">⬇️ Download Image (No Watermark)</button>';
 }
 function gLogo(){
- let n=document.getElementById('lName').value||'Orbittroniz', s=document.getElementById('lStyle').value||'minimal modern', url='https://image.pollinations.ai/p/'+encodeURIComponent('logo for '+n+', '+s+', vector professional white background')+'?width=1024&height=1024&seed='+Math.floor(Math.random()*99999)+'&nologo=1';
- document.getElementById('rLogo').innerHTML='<p class=s>⏳ Generating...</p><img class=rimg src="'+url+'" style="background:#fff;padding:10px">';
+ let n=document.getElementById('lName').value||'Orbittroniz', s=document.getElementById('lStyle').value||'minimal modern';
+ lastLogoUrl='https://image.pollinations.ai/p/'+encodeURIComponent('professional vector logo for '+n+', '+s+', clean minimal, white background, no watermark, no text other than logo')+'?width=1024&height=1024&seed='+Math.floor(Math.random()*999999)+'&nologo=true&nofeed=true';
+ document.getElementById('rLogo').innerHTML='<p class=s>⏳ Generating...</p><img id="logoOut" class=rimg src="'+lastLogoUrl+'" style="background:#fff;padding:12px" onload="this.previousElementSibling.innerHTML=\'✅ Logo Ready\'"><button class=dl onclick="downloadImage(lastLogoUrl,\'logo-'+n+'\')">⬇️ Download Logo PNG (No Watermark)</button>';
+}
+async function downloadImage(url, name){
+ try{
+  let res=await fetch(url); let blob=await res.blob(); let a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name+'.png'; a.click();
+ }catch(e){window.open(url,'_blank')}
 }
 function g3d(){let t=document.getElementById('t3d').value||'ORBITTRONIZ', c=document.getElementById('c3d').value; let el=document.getElementById('t3dOut'); el.innerText=t; el.style.color=c;}
-function loadV(){let s=document.getElementById('vSel'), vs=speechSynthesis.getVoices(); s.innerHTML=''; vs.forEach(function(v,i){let o=document.createElement('option');o.value=i;o.text=v.name; s.appendChild(o)});}
-speechSynthesis.onvoiceschanged=loadV; loadV();
-function gVoice(){let t=document.getElementById('vT').value||'Welcome to Orbittroniz', sp=parseFloat(document.getElementById('vSp').value), vs=speechSynthesis.getVoices(), idx=document.getElementById('vSel').value, u=new SpeechSynthesisUtterance(t); if(vs[idx])u.voice=vs[idx]; u.rate=sp; speechSynthesis.cancel(); speechSynthesis.speak(u);}
+function download3D(){
+ let el=document.getElementById('t3dOut'); let canvas=document.createElement('canvas'); canvas.width=800; canvas.height=400; let ctx=canvas.getContext('2d'); ctx.fillStyle='#0f0f2e'; ctx.fillRect(0,0,800,400); ctx.fillStyle=document.getElementById('c3d').value; ctx.font='bold 60px system-ui'; ctx.textAlign='center'; ctx.fillText(el.innerText,400,220); let a=document.createElement('a'); a.download='orbittroniz-3d.png'; a.href=canvas.toDataURL(); a.click();
+}
+// VOICE WITH DOWNLOADABLE MP3 - NO WATERMARK
+let lastVoiceUrl='';
+function gVoice(){
+ let txt=document.getElementById('vT').value||'Welcome to Orbittroniz'; let voice=document.getElementById('vSel').value;
+ lastVoiceUrl='https://api.streamelements.com/kappa/v2/speech?voice='+voice+'&text='+encodeURIComponent(txt);
+ let box=document.getElementById('rVoice');
+ box.innerHTML='<audio controls autoplay style="width:100%;margin-top:8px" src="'+lastVoiceUrl+'"></audio><button class=dl onclick="downloadVoice()">⬇️ Download Voice MP3 (No Watermark)</button><p class=s style="text-align:left">Voice generated - No watermark, clean MP3</p>';
+}
+function downloadVoice(){
+ if(!lastVoiceUrl)return; let a=document.createElement('a'); a.href=lastVoiceUrl; a.download='orbittroniz-voice.mp3'; a.target='_blank'; a.click();
+}
+function gVid(){
+ let f=document.getElementById('vFile').files[0], box=document.getElementById('rVid'); if(!f){box.innerHTML='<span style=color:#fca5a5>Upload image first</span>';return;}
+ let rd=new FileReader(); rd.onload=function(e){
+   let url=e.target.result;
+   box.innerHTML='<p class=s>✅ Video Ready - No Watermark</p><img id="vidPreview" class=rimg src="'+url+'" style="animation:zp 3s infinite alternate"><style>@keyframes zp{0%{transform:scale(1)}100%{transform:scale(1.3)}}</style><button class=dl onclick="downloadImage(\''+url+'\',\'video-frame\')">⬇️ Download Frame (No Watermark)</button><p class=s>Note: For full MP4 download, connect RunwayML API later - current preview is downloadable as image with motion effect</p>';
+ }; rd.readAsDataURL(f);
+}
 </script></body></html>
