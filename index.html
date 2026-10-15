@@ -7,35 +7,40 @@
 <title>Orbittroniz</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#060a1a;color:#fff;font-family:sans-serif;height:100dvh;display:flex;flex-direction:column;overflow:hidden}
+body{background:#070b1c;color:#fff;font-family:sans-serif;height:100dvh;display:flex;flex-direction:column;overflow:hidden}
 
-/* TOP PART - EXACT LIKE 2ND IMAGE */
-.top{flex:1;position:relative;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 0%, #1a2a6a 0%, #101a3d 25%, #060a1a 60%)}
-.big-circle{width:320px;height:320px;border-radius:50%;border:1px solid rgba(120,140,200,0.18);position:absolute;background:radial-gradient(circle, rgba(50,70,150,0.25) 0%, rgba(20,30,70,0.1) 50%, transparent 70%);box-shadow:inset 0 0 80px rgba(60,90,180,0.15)}
-.orbit-line{position:absolute;width:140%;height:1px;background:linear-gradient(90deg, transparent 5%, rgba(180,200,255,0.7) 50%, transparent 95%);top:52%;transform:rotate(-5deg);opacity:0.6}
+/* TOP WITH LIVE MOTION */
+.top{flex:1;position:relative;display:flex;align-items:center;justify-content:center;background:#070b1c;overflow:hidden}
+.big-circle{width:340px;height:340px;border-radius:50%;border:1px solid rgba(100,110,180,0.12);position:absolute;animation:pulse 4s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:0.8}50%{transform:scale(1.05);opacity:1}}
 
-/* LOGO CARD - EXACT FROM 2ND IMAGE */
-.card{width:108px;height:108px;background:#121d38;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;z-index:5;box-shadow:0 0 25px rgba(70,110,255,0.35);border:1px solid rgba(100,130,200,0.2)}
-.card-dot{position:absolute;top:8px;right:8px;width:7px;height:7px;background:#3dd68c;border-radius:50%}
-.o-outer{width:36px;height:36px;border-radius:50%;background:#7aa2ff;display:flex;align-items:center;justify-content:center;box-shadow:0 0 12px #7aa2ff}
-.o-inner{width:16px;height:16px;background:#121d38;border-radius:50%}
-.card-text{margin-top:12px;font-size:8.5px;letter-spacing:2.2px;color:#a8c0ff;font-weight:700}
+.orbit-wrap{position:absolute;width:150%;height:150%;animation:rotate 20s linear infinite}
+@keyframes rotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.orbit-line{position:absolute;width:100%;height:1px;background:linear-gradient(90deg, transparent, rgba(170,190,255,0.5), transparent);top:50%;left:0}
 
-/* BOTTOM - FIXED SO LOGOUT IS VISIBLE */
-.bottom{background:#0e1731;padding:22px 18px 30px 18px;border-radius:28px 28px 0 0;text-align:center}
-.bottom h1{font-size:31px;font-weight:800}
-.email{color:#7a859e;font-size:13px;margin-top:2px;display:block}
-.ok{color:#4ade80;margin:16px 0 18px 0;font-weight:600}
-.logout{width:100%;padding:16px;background:linear-gradient(90deg,#5a5bff,#8a4dff);border:none;border-radius:13px;color:white;font-size:16px;font-weight:700}
+/* LOGO - CLEAN O NO GLOW - LIKE 1ST IMAGE */
+.card{width:112px;height:112px;background:#151e36;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;box-shadow:0 8px 32px rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.05);animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+.o-ring{width:42px;height:42px;border-radius:50%;border:3px solid #a78bfa; /* clean purple outline - no glow fill */animation:ringPulse 2s ease-in-out infinite}
+@keyframes ringPulse{0%,100%{border-color:#a78bfa;transform:scale(1)}50%{border-color:#c4b5fd;transform:scale(1.08)}}
+
+.card-text{margin-top:14px;font-size:9px;letter-spacing:3px;color:#8ab4ff;font-weight:600}
+
+/* BOTTOM - LOGOUT FULLY VISIBLE */
+.bottom{background:#111a33;padding:24px 20px 32px 20px;border-radius:30px 30px 0 0;text-align:center;flex-shrink:0}
+.bottom h1{font-size:32px;font-weight:800}
+.email{color:#8a94ad;font-size:14px;margin-top:4px;display:block}
+.ok{color:#4ade80;margin:16px 0 20px 0;font-weight:600}
+.logout{width:100%;padding:17px;background:linear-gradient(90deg,#6366f1,#8b5cf6);border:none;border-radius:14px;color:white;font-size:16px;font-weight:700}
 </style>
 </head>
 <body>
 <div class="top">
   <div class="big-circle"></div>
-  <div class="orbit-line"></div>
+  <div class="orbit-wrap"><div class="orbit-line"></div></div>
   <div class="card">
-    <div class="card-dot"></div>
-    <div class="o-outer"><div class="o-inner"></div></div>
+    <div class="o-ring"></div>
     <div class="card-text">ORBITTRONIZ</div>
   </div>
 </div>
