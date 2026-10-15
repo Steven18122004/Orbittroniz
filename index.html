@@ -1,65 +1,97 @@
 <!DOCTYPE html>
 <html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Orbittroniz - AI Studio</title>
+<title>Orbittroniz</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Outfit',sans-serif}
-body{min-height:100vh;min-height:100dvh;background:#020412;display:flex;flex-direction:column;align-items:center;position:relative;overflow:hidden}
-.bg{position:absolute;inset:0;background:radial-gradient(ellipse at center top, #1e3a8a 0%, #0a0e27 45%, #020412 85%)}
-.bg2{position:absolute;inset:0;background:url('logo.png') center 18% / 380px no-repeat;filter:blur(70px) brightness(1.5);opacity:0.35}
-.orb{position:absolute;top:22%;left:50%;transform:translate(-50%,-50%);width:520px;height:520px;background:radial-gradient(circle, rgba(59,130,246,0.22) 0%, transparent 65%);pointer-events:none}
-.wrap{position:relative;z-index:2;width:100%;max-width:440px;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:24px 20px 30px}
-.top{text-align:center;margin-bottom:28px}
-.logo{width:128px;height:128px;margin:0 auto 18px;border-radius:28px;box-shadow:0 0 0 1px rgba(255,255,255,0.1) inset, 0 20px 50px rgba(59,130,246,0.45), 0 0 80px rgba(59,130,246,0.3);animation:float 4s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.25);color:#93c5fd;padding:7px 14px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:0.6px;margin-bottom:16px}
-h1{font-size:42px;font-weight:800;letter-spacing:-1px;background:linear-gradient(180deg, #fff 20%, #93c5fd 80%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.sub{color:#94a3b8;font-size:15px;margin-top:6px}
-.form{margin-top:10px;background:linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));backdrop-filter:blur(30px);border:1px solid rgba(255,255,255,0.1);border-radius:24px;padding:22px 18px;box-shadow:0 20px 60px rgba(0,0,0,0.5)}
-.tabs{display:flex;background:rgba(0,0,0,0.5);border-radius:14px;padding:4px;gap:4px;margin-bottom:18px}
-.tab{flex:1;padding:12px;text-align:center;border-radius:10px;font-size:14px;font-weight:600;color:#64748b;cursor:pointer;transition:0.25s}
-.tab.a{background:#fff;color:#000;box-shadow:0 4px 12px rgba(0,0,0,0.3)}
-input{width:100%;background:rgba(0,0,0,0.55);border:1.5px solid rgba(255,255,255,0.08);border-radius:14px;padding:15px 16px;color:#fff;font-size:15px;outline:none;margin-bottom:12px;transition:0.2s}
-input:focus{border-color:#3b82f6;background:rgba(0,0,0,0.7);box-shadow:0 0 0 4px rgba(59,130,246,0.15)}
-input::placeholder{color:#475569}
-.btn{width:100%;background:linear-gradient(90deg, #3b82f6, #6366f1, #8b5cf6);background-size:200% auto;border:none;border-radius:14px;padding:15px;color:#fff;font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 10px 24px rgba(59,130,246,0.4);transition:0.2s}
-.btn:active{transform:scale(0.98)}
-.msg{text-align:center;font-size:13px;min-height:18px;margin-top:12px}
-.foot{display:flex;justify-content:center;gap:18px;margin-top:20px;color:#334155;font-size:11px}
+body{min-height:100vh;min-height:100dvh;background:#020412;overflow:hidden;display:flex;flex-direction:column}
+.bg{position:fixed;inset:0;background:radial-gradient(ellipse at 50% -10%, #1e3a8a 0%, #0f1a4a 25%, #020412 70%)}
+.stars{position:fixed;inset:0;background-image:radial-gradient(1px 1px at 20% 30%, #3b82f6 0%, transparent 100%),radial-gradient(1px 1px at 80% 20%, #60a5fa 0%, transparent 100%),radial-gradient(1.5px 1.5px at 40% 70%, #6366f1 0%, transparent 100%),radial-gradient(1px 1px at 90% 80%, #3b82f6 0%, transparent 100%);opacity:0.5}
+
+/* FULL SCREEN FLOATING ORB - MADE WITH CODE, NOT IMAGE */
+.scene{position:relative;z-index:2;flex:1;display:flex;align-items:center;justify-content:center;perspective:1000px}
+.orb-wrap{position:relative;width:260px;height:260px;animation:floatMain 6s ease-in-out infinite;transform-style:preserve-3d}
+@keyframes floatMain{0%,100%{transform:translateY(0) rotateX(5deg)}50%{transform:translateY(-18px) rotateX(-5deg)}}
+
+.sphere{
+position:absolute;inset:0;border-radius:50%;
+background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.25), rgba(96,165,250,0.15) 20%, rgba(30,58,138,0.4) 60%, rgba(2,4,18,0.9) 90%);
+box-shadow: inset -20px -20px 40px rgba(0,0,0,0.8), inset 10px 10px 30px rgba(147,197,253,0.3), 0 0 80px rgba(59,130,246,0.5), 0 0 120px rgba(59,130,246,0.2);
+backdrop-filter: blur(1px);
+border:1px solid rgba(147,197,253,0.2);
+}
+.chip{
+position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+width:88px;height:88px;background:linear-gradient(135deg, #0f172a, #1e293b);
+border:1px solid rgba(59,130,246,0.4);border-radius:16px;
+display:flex;flex-direction:column;align-items:center;justify-content:center;
+box-shadow:0 0 20px rgba(59,130,246,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+.chip b{font-size:34px;color:#38bdf8;text-shadow:0 0 12px #38bdf8;font-weight:800}
+.chip span{font-size:7px;letter-spacing:2px;color:#60a5fa;margin-top:2px;font-weight:700}
+.circuit{position:absolute;inset:18px;border-radius:50%;border:1px dashed rgba(59,130,246,0.15);animation:spin 20s linear infinite}
+.circuit2{position:absolute;inset:-6px;border-radius:50%;border:1px dashed rgba(99,102,241,0.12);animation:spin 30s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.ring{
+position:absolute;top:50%;left:50%;width:140%;height:32%;border-radius:50%;
+border:2px solid transparent;
+border-top:2px solid rgba(59,130,246,0.8);
+border-bottom:1px solid rgba(251,146,60,0.4);
+transform:translate(-50%,-50%) rotateX(75deg) rotateZ(-15deg);
+box-shadow:0 0 20px rgba(59,130,246,0.4);
+animation:ringRotate 8s linear infinite;
+}
+.ring2{width:150%;height:36%;transform:translate(-50%,-50%) rotateX(75deg) rotateZ(25deg);opacity:0.6;animation-duration:12s}
+@keyframes ringRotate{0%{transform:translate(-50%,-50%) rotateX(75deg) rotateZ(0deg)}100%{transform:translate(-50%,-50%) rotateX(75deg) rotateZ(360deg)}}
+
+/* FORM - FULL WIDTH BOTTOM SHEET */
+.form-wrap{position:relative;z-index:3;background:linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(2,4,18,0.9) 100%);backdrop-filter:blur(40px);border-top:1px solid rgba(255,255,255,0.08);border-radius:32px 32px 0 0;padding:28px 22px 32px;box-shadow:0 -20px 80px rgba(0,0,0,0.6)}
+h1{font-size:34px;font-weight:800;text-align:center;background:linear-gradient(180deg, #fff, #93c5fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sub{color:#64748b;text-align:center;font-size:14px;margin:6px 0 20px}
+.tabs{display:flex;background:rgba(0,0,0,0.5);border-radius:14px;padding:4px;margin-bottom:18px}
+.tab{flex:1;padding:12px;text-align:center;border-radius:10px;font-weight:700;font-size:14px;color:#475569;cursor:pointer}
+.tab.a{background:#fff;color:#000}
+input{width:100%;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.08);border-radius:14px;padding:15px;color:#fff;font-size:15px;margin-bottom:12px;outline:none}
+input:focus{border-color:#3b82f6;background:rgba(255,255,255,0.09)}
+.btn{width:100%;background:#fff;color:#000;border:none;border-radius:14px;padding:15px;font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,0.3)}
+.btn2{background:linear-gradient(90deg, #3b82f6, #6366f1);color:#fff;margin-top:8px}
+.msg{text-align:center;font-size:13px;min-height:18px;margin-top:10px}
 .hide{display:none}
 </style></head><body>
-<div class="bg"></div><div class="bg2"></div><div class="orb"></div>
+<div class="bg"></div><div class="stars"></div>
 
-<div class="wrap" id="aBox">
-<div class="top">
-<img class="logo" src="logo.png">
-<div class="badge">✨ AI-POWERED STUDIO</div>
-<h1>Orbittroniz</h1>
-<p class="sub">Sign in to your AI creative universe</p>
+<div class="scene">
+<div class="orb-wrap">
+<div class="circuit"></div><div class="circuit2"></div>
+<div class="ring"></div><div class="ring ring2"></div>
+<div class="sphere"></div>
+<div class="chip"><b>O</b><span>ORBITTRONIZ</span></div>
+</div>
 </div>
 
-<div class="form">
+<div class="form-wrap" id="aBox">
+<h1>Orbittroniz</h1>
+<p class="sub">Your AI creative universe • No watermark</p>
 <div class="tabs"><div class="tab" id="tL" onclick="M('login')">Login</div><div class="tab a" id="tS" onclick="M('signup')">Sign Up</div></div>
-<input id="e" type="email" placeholder="Email address">
-<input id="p" type="password" placeholder="Password • min 6 characters">
+<input id="e" placeholder="Email address">
+<input id="p" type="password" placeholder="Password • min 6 chars">
 <button class="btn" id="b" onclick="H()">Create Account →</button>
 <div class="msg" id="m"></div>
 </div>
-<div class="foot"><span>⚡ No Watermark</span><span>•</span><span>🔒 Secure</span><span>•</span><span>💎 Premium</span></div>
-</div>
 
-<div class="wrap hide" id="dBox" style="display:none;text-align:center">
-<img class="logo" src="logo.png" style="width:100px;height:100px">
+<div class="form-wrap hide" id="dBox" style="display:none;text-align:center">
 <h1>Welcome 👋</h1>
 <p class="sub" id="ue"></p>
-<div class="form"><p style="color:#4ade80;margin-bottom:12px">✅ Login Successful</p><p style="color:#94a3b8;font-size:14px">Your premium workspace is ready.</p><button class="btn" style="margin-top:18px;background:#ffffff10;border:1px solid #ffffff15" onclick="logout()">Logout</button></div>
+<p style="color:#4ade80;margin:14px 0">✅ Login Successful</p>
+<button class="btn btn2" onclick="logout()">Logout</button>
 </div>
 
 <script>
 let mode='signup';
-function M(m){mode=m;document.getElementById('tL').className=m=='login'?'tab a':'tab';document.getElementById('tS').className=m=='signup'?'tab a':'tab';document.getElementById('b').innerText=m=='login'?'Login →':'Create Account →';document.getElementById('m').innerText='';}
-function H(){let e=document.getElementById('e').value.trim(),p=document.getElementById('p').value,m=document.getElementById('m');if(!e.includes('@')||p.length<6){m.innerHTML='<span style=color:#fca5a5>Enter valid email + 6 char password</span>';return}if(mode=='signup'){localStorage.setItem('oU',JSON.stringify({e,p}));m.innerHTML='<span style=color:#4ade80>✓ Account created!</span>';setTimeout(()=>S(e),500)}else{let u=JSON.parse(localStorage.getItem('oU')||'null');if(u&&u.e==e&&u.p==p)S(e);else m.innerHTML='<span style=color:#fca5a5>Wrong password or sign up first</span>'}}
-function S(email){document.getElementById('aBox').style.display='none';let d=document.getElementById('dBox');d.style.display='flex';d.classList.remove('hide');document.getElementById('ue').innerText=email;localStorage.setItem('oL',email)}
+function M(m){mode=m;document.getElementById('tL').className=m=='login'?'tab a':'tab';document.getElementById('tS').className=m=='signup'?'tab a':'tab';document.getElementById('b').innerText=m=='login'?'Login →':'Create Account →';}
+function H(){let e=document.getElementById('e').value.trim(),p=document.getElementById('p').value,m=document.getElementById('m');if(!e.includes('@')||p.length<6){m.innerHTML='<span style=color:#fca5a5>Valid email + 6 char pass</span>';return}if(mode=='signup'){localStorage.setItem('oU',JSON.stringify({e,p}));m.innerHTML='<span style=color:#4ade80>✓ Account created</span>';setTimeout(()=>S(e),500)}else{let u=JSON.parse(localStorage.getItem('oU')||'null');if(u&&u.e==e&&u.p==p)S(e);else m.innerHTML='<span style=color:#fca5a5>Wrong or signup first</span>'}}
+function S(email){document.getElementById('aBox').style.display='none';let d=document.getElementById('dBox');d.style.display='block';d.classList.remove('hide');document.getElementById('ue').innerText=email;localStorage.setItem('oL',email)}
 function logout(){localStorage.removeItem('oL');location.reload()}
 let L=localStorage.getItem('oL');if(L)S(L);
 </script></body></html>
