@@ -1,143 +1,54 @@
 <!DOCTYPE html>
 <html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Orbittroniz - Enterprise Voice RTO Service</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<title>Orbittroniz</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Outfit',sans-serif}
-body{background:#020412;color:#fff;min-height:100vh}
-.bg{position:fixed;inset:0;background:radial-gradient(ellipse at 0% -10%, #1e3a8a 0%, transparent 50%),radial-gradient(ellipse at 100% 0%, #312e81 0%, transparent 40%),#020412}
-#loginScreen{min-height:100vh;display:flex;flex-direction:column;position:relative;z-index:2}
-.scene{flex:1;display:flex;align-items:center;justify-content:center}
-.orb{width:240px;height:240px;border-radius:50%;background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), rgba(30,58,138,0.5) 60%, #020412);box-shadow:0 0 80px rgba(59,130,246,0.5);border:1px solid rgba(147,197,253,0.2);display:grid;place-items:center;animation:float 6s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
-.form{backdrop-filter:blur(40px);background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(2,4,18,0.95));border-top:1px solid rgba(255,255,255,0.08);border-radius:32px 32px 0 0;padding:28px 22px}
+body{min-height:100vh;min-height:100dvh;background:#020412;overflow:hidden;display:flex;flex-direction:column}
+.bg{position:fixed;inset:0;background:radial-gradient(ellipse at 50% -10%, #1e3a8a 0%, #0f1a4a 25%, #020412 70%)}
+.stars{position:fixed;inset:0;opacity:0.5;background-image:radial-gradient(1px 1px at 20% 30%, #3b82f6, transparent),radial-gradient(1px 1px at 80% 20%, #60a5fa, transparent),radial-gradient(1.5px 1.5px at 40% 70%, #6366f1, transparent)}
+.scene{position:relative;z-index:2;flex:1;display:flex;align-items:center;justify-content:center}
+.orb-wrap{position:relative;width:260px;height:260px;animation:floatMain 6s ease-in-out infinite}
+@keyframes floatMain{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+.sphere{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.25), rgba(96,165,250,0.15) 20%, rgba(30,58,138,0.4) 60%, rgba(2,4,18,0.9) 90%);box-shadow:inset -20px -20px 40px rgba(0,0,0,0.8), 0 0 80px rgba(59,130,246,0.5);border:1px solid rgba(147,197,253,0.2)}
+.chip{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:88px;height:88px;background:linear-gradient(135deg, #0f172a, #1e293b);border:1px solid rgba(59,130,246,0.4);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(59,130,246,0.5)}
+.chip b{font-size:34px;color:#38bdf8;font-weight:800}
+.chip span{font-size:7px;letter-spacing:2px;color:#60a5fa;margin-top:2px;font-weight:700}
+.ring{position:absolute;top:50%;left:50%;width:140%;height:32%;border-radius:50%;border-top:2px solid rgba(59,130,246,0.8);transform:translate(-50%,-50%) rotateX(75deg);animation:ringRotate 8s linear infinite}
+@keyframes ringRotate{to{transform:translate(-50%,-50%) rotateX(75deg) rotateZ(360deg)}}
+.form-wrap{position:relative;z-index:3;background:linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(2,4,18,0.95) 100%);backdrop-filter:blur(40px);border-top:1px solid rgba(255,255,255,0.08);border-radius:32px 32px 0 0;padding:28px 22px 32px}
+h1{font-size:34px;font-weight:800;text-align:center;background:linear-gradient(180deg, #fff, #93c5fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sub{color:#64748b;text-align:center;font-size:14px;margin:6px 0 20px}
 .tabs{display:flex;background:rgba(0,0,0,0.5);border-radius:14px;padding:4px;margin-bottom:18px}
-.tab{flex:1;padding:12px;text-align:center;border-radius:10px;font-weight:700;color:#475569;cursor:pointer}.tab.a{background:#fff;color:#000}
-input{width:100%;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.08);border-radius:14px;padding:15px;color:#fff;margin-bottom:12px;outline:none}
-.btn{width:100%;background:#fff;color:#000;border:none;border-radius:14px;padding:15px;font-weight:800;cursor:pointer}
-#dash{display:none;position:relative;z-index:2}
-.top{padding:12px 16px;display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,0.5);border-bottom:1px solid rgba(255,255,255,0.06);backdrop-filter:blur(20px)}
-.live{background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.3);color:#4ade80;padding:4px 10px;border-radius:100px;font-size:10px;font-weight:700;display:flex;align-items:center;gap:5px}
-.dot{width:6px;height:6px;background:#22c55e;border-radius:50%;animation:b 1.2s infinite}@keyframes b{0%,100%{opacity:1}50%{opacity:0.3}}
-.grid{padding:12px 16px;display:grid;gap:12px}
-.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-.s{background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:12px}
-.s b{font-size:18px;display:block}.s span{font-size:10px;color:#64748b}
-.card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:14px}
-.row{display:flex;gap:10px;align-items:center;background:rgba(0,0,0,0.4);border-radius:14px;padding:10px;border:1px solid rgba(255,255,255,0.06);margin-top:10px}
-.risk{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:13px;flex-shrink:0}
-.callbox{background:#000;border-radius:16px;border:1px solid rgba(59,130,246,0.2);overflow:hidden;margin-top:10px}
-.wave{display:flex;align-items:center;gap:2px;height:54px;justify-content:center;background:radial-gradient(ellipse at 50% 50%, rgba(59,130,246,0.15), transparent)}
-.bar{width:3px;background:linear-gradient(#60a5fa, #3b82f6);border-radius:10px;animation:wave 0.6s ease-in-out infinite}
-@keyframes wave{0%,100%{height:8px}50%{height:28px}}
-.trans{padding:12px;max-height:260px;overflow-y:auto;font-size:13px;line-height:1.6}
-.line{margin:8px 0;display:flex;gap:8px}.who{font-size:9px;padding:3px 7px;border-radius:100px;font-weight:700;height:fit-content}
-.ai{background:#3b82f6;color:#fff}.cust{background:rgba(255,255,255,0.12)}
-.btnp{background:linear-gradient(90deg, #3b82f6, #6366f1);color:#fff;border:none;border-radius:14px;padding:12px 16px;font-weight:700;cursor:pointer}
-.mono{font-family:'JetBrains Mono',monospace;font-size:11px}
-.timeline{display:flex;gap:6px;margin-top:8px}.t{flex:1;text-align:center;padding:6px;border-radius:10px;font-size:9px;font-weight:700}
-.t.done{background:rgba(34,197,94,0.15);color:#4ade80;border:1px solid rgba(34,197,94,0.3)}.t.active{background:rgba(59,130,246,0.15);color:#60a5fa;border:1px solid rgba(59,130,246,0.3);animation:pulse 1s infinite}.t.wait{background:rgba(255,255,255,0.04);color:#64748b}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}}
+.tab{flex:1;padding:12px;text-align:center;border-radius:10px;font-weight:700;font-size:14px;color:#475569;cursor:pointer}
+.tab.a{background:#fff;color:#000}
+input{width:100%;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.08);border-radius:14px;padding:15px;color:#fff;font-size:15px;margin-bottom:12px;outline:none}
+input:focus{border-color:#3b82f6}
+.btn{width:100%;background:#fff;color:#000;border:none;border-radius:14px;padding:15px;font-weight:800;font-size:15px;cursor:pointer}
+.btn2{background:linear-gradient(90deg, #3b82f6, #6366f1);color:#fff;margin-top:10px}
+.msg{text-align:center;font-size:13px;min-height:18px;margin-top:10px}
+.hide{display:none}
 </style></head><body>
-<div class="bg"></div>
+<div class="bg"></div><div class="stars"></div>
+<div class="scene"><div class="orb-wrap"><div class="ring"></div><div class="sphere"></div><div class="chip"><b>O</b><span>ORBITTRONIZ</span></div></div></div>
 
-<div id="loginScreen">
-<div class="scene"><div class="orb"><div style="text-align:center"><b style="font-size:32px;color:#38bdf8">O</b><div style="font-size:7px;letter-spacing:2px;color:#60a5fa">ORBITTRONIZ<br>ENTERPRISE</div></div></div></div>
-<div class="form"><h1 style="font-size:28px;font-weight:800;text-align:center;background:linear-gradient(180deg,#fff,#93c5fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Voice RTO Service</h1><p style="color:#64748b;text-align:center;font-size:12px;margin:6px 0 16px">For D2C Brands • Saves COD Returns</p><div class="tabs"><div class="tab" id="tL" onclick="M('login')">Login</div><div class="tab a" id="tS" onclick="M('signup')">Enterprise Sign Up</div></div><input id="e" placeholder="company email (e.g. founder@boat.com)"><input id="p" type="password" placeholder="password"><button class="btn" id="b" onclick="H()">Access Enterprise Dashboard →</button><div id="m" style="text-align:center;font-size:12px;margin-top:10px;min-height:18px"></div></div>
-</div>
-
-<div id="dash">
-<div class="top"><div><b style="font-size:13px">ORBITTRONIZ • RTO Voice Agent Service</b><div class="live"><div class="dot"></div> LIVE • 3 CALLS SAVING ORDERS NOW</div></div><span onclick="logout()" style="font-size:11px;color:#64748b;background:rgba(255,255,255,0.06);padding:8px 12px;border-radius:100px;cursor:pointer">Logout</span></div>
-
-<div class="grid">
-<div class="stats">
-<div class="s"><span>TODAY MONEY SAVED</span><b style="color:#4ade80">₹1,42,300</b><span>↑ 23% • Real cash</span></div>
-<div class="s"><span>ORDERS SAVED BY AI</span><b>89 / 97</b><span>92% Human-like voice</span></div>
-<div class="s"><span>YOUR EARNING (30/order)</span><b style="color:#60a5fa">₹2,670</b><span>Today • Auto billing</span></div>
+<div class="form-wrap" id="aBox">
+<h1>Orbittroniz</h1><p class="sub">Your AI creative universe • No watermark</p>
+<div class="tabs"><div class="tab" id="tL" onclick="M('login')">Login</div><div class="tab a" id="tS" onclick="M('signup')">Sign Up</div></div>
+<input id="e" placeholder="Email address"><input id="p" type="password" placeholder="Password • min 6 chars">
+<button class="btn" id="b" onclick="H()">Create Account →</button>
+<div class="msg" id="m"></div>
 </div>
 
-<div class="card">
-<div style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:13px">⚠️ Live Incoming COD Order • High RTO Risk</b><span style="font-size:10px;background:#ef4444;color:#fff;padding:4px 8px;border-radius:100px">AUTO-SERVICE TRIGGERED</span></div>
-<div class="row"><div class="risk" style="background:radial-gradient(circle, rgba(239,68,68,0.3), rgba(239,68,68,0.1));border:1px solid #ef4444;color:#fca5a5">92%</div><div style="flex:1"><b style="font-size:12px">ORD-78421 • COD ₹1,499 • Kurla, Mumbai</b><br><span class="mono" style="color:#94a3b8">Amit S • 98xxxxxx10 • 3 past RTOs • Blacklisted address pattern</span></div></div>
-<div class="timeline"><div class="t done">✓ RISK DETECTED</div><div class="t active">● AI CALLING</div><div class="t wait">WHATSAPP</div><div class="t wait">SAVED</div></div>
-</div>
-
-<div class="card">
-<div style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:13px">🎙️ Real Human Voice Call - Live Service</b><span id="status" style="font-size:10px;background:rgba(59,130,246,0.15);color:#60a5fa;padding:4px 8px;border-radius:100px">● CONNECTED • EXOTEL</span></div>
-<div class="callbox">
-<div class="wave" id="wave"><div class="bar"></div><div class="bar" style="animation-delay:0.1s"></div><div class="bar" style="animation-delay:0.2s"></div><div class="bar" style="animation-delay:0.3s"></div><div class="bar" style="animation-delay:0.15s"></div><div class="bar" style="animation-delay:0.05s"></div><div class="bar" style="animation-delay:0.25s"></div></div>
-<div class="trans" id="trans"><div style="color:#64748b;font-size:11px;text-align:center">Service starting... AI will call customer in Hinglish like human manager...</div></div>
-</div>
-<div style="display:flex;gap:8px;margin-top:10px"><input id="phone" placeholder="Test with YOUR number - AI will call you like human" style="margin:0;flex:1"><button class="btnp" onclick="start()">▶ Start Human Call</button></div>
-<div style="display:flex;gap:8px;margin-top:8px"><span class="mono" style="background:rgba(255,255,255,0.06);padding:6px 10px;border-radius:100px;font-size:10px">✓ Hindi + English mix</span><span class="mono" style="background:rgba(255,255,255,0.06);padding:6px 10px;border-radius:100px;font-size:10px">✓ Negotiates ₹50 off</span><span class="mono" style="background:rgba(255,255,255,0.06);padding:6px 10px;border-radius:100px;font-size:10px">✓ Sends WhatsApp location</span></div>
-</div>
-
-<div class="card">
-<b style="font-size:13px">📊 Enterprise Service Model - How Companies Pay You</b>
-<div class="row" style="flex-direction:column;align-items:stretch;gap:6px">
-<div style="display:flex;justify-content:space-between;font-size:11px"><span class="mono" style="color:#94a3b8">Integration: Shopify / WooCommerce / Shiprocket API</span><span style="color:#4ade80">✓ Ready</span></div>
-<div style="display:flex;justify-content:space-between;font-size:11px"><span class="mono" style="color:#94a3b8">Voice Provider: Exotel / Truecaller / Gupshup (₹1.5/call)</span><span style="color:#4ade80">✓ Integrated</span></div>
-<div style="display:flex;justify-content:space-between;font-size:11px"><span class="mono" style="color:#94a3b8">Your charge to brand: ₹30 per saved order</span><span style="color:#60a5fa;font-weight:700">You keep ₹28 profit</span></div>
-<div style="display:flex;justify-content:space-between;font-size:11px"><span class="mono" style="color:#94a3b8">Brand saves: ₹150 shipping + ₹1499 order = ₹1649</span><span style="color:#4ade80">ROI 55x</span></div>
-</div>
-<div style="display:flex;gap:8px;margin-top:10px"><button class="btnp" style="flex:1" onclick="vc()">📄 Download VC Pitch + Revenue Sheet</button><button class="btnp" style="flex:1;background:rgba(255,255,255,0.08)" onclick="alert('API: POST https://orbittroniz.com/api/rto/check\\nKey: orbt_live_xxx\\nThis is how Shiprocket integrates you')">🔌 API Docs for Enterprise</button></div>
-<div style="margin-top:10px;font-size:10px;color:#64748b;text-align:center" class="mono">LIVE CLIENTS: boAt (₹4.2L saved) • Snitch • Lenskart • Sugar • 47 more • MRR ₹12.3L • Ask: ₹80L seed for voice infra</div>
-</div>
-</div>
+<div class="form-wrap hide" id="dBox" style="display:none;text-align:center">
+<h1>Welcome 👋</h1><p class="sub" id="ue"></p><p style="color:#4ade80;margin:14px 0">✅ Login Successful</p><button class="btn btn2" onclick="logout()">Logout</button>
 </div>
 
 <script>
-// LOGIN
-let mode='signup';function M(m){mode=m;document.getElementById('tL').className=m=='login'?'tab a':'tab';document.getElementById('tS').className=m=='signup'?'tab a':'tab'}
-function H(){let e=document.getElementById('e').value.trim(),p=document.getElementById('p').value,m=document.getElementById('m');if(!e.includes('@')||p.length<6){m.innerHTML='<span style=color:#fca5a5>Enterprise email</span>';return}if(mode=='signup'){localStorage.setItem('oU',JSON.stringify({e,p}));m.innerHTML='<span style=color:#4ade80>✓ Enterprise created</span>';setTimeout(()=>S(e),400)}else{let u=JSON.parse(localStorage.getItem('oU')||'null');if(u&&u.e==e&&u.p==p)S(e);else m.innerHTML='<span style=color:#fca5a5>Wrong</span>'}}
-function S(e){document.getElementById('loginScreen').style.display='none';document.getElementById('dash').style.display='block';localStorage.setItem('oL',e);start()}
+let mode='signup';
+function M(m){mode=m;document.getElementById('tL').className=m=='login'?'tab a':'tab';document.getElementById('tS').className=m=='signup'?'tab a':'tab';document.getElementById('b').innerText=m=='login'?'Login →':'Create Account →';}
+function H(){let e=document.getElementById('e').value.trim(),p=document.getElementById('p').value,m=document.getElementById('m');if(!e.includes('@')||p.length<6){m.innerHTML='<span style=color:#fca5a5>Valid email + 6 char pass</span>';return}if(mode=='signup'){localStorage.setItem('oU',JSON.stringify({e,p}));m.innerHTML='<span style=color:#4ade80>✓ Account created</span>';setTimeout(()=>S(e),500)}else{let u=JSON.parse(localStorage.getItem('oU')||'null');if(u&&u.e==e&&u.p==p)S(e);else m.innerHTML='<span style=color:#fca5a5>Wrong or signup first</span>'}}
+function S(email){document.getElementById('aBox').style.display='none';let d=document.getElementById('dBox');d.style.display='block';d.classList.remove('hide');document.getElementById('ue').innerText=email;localStorage.setItem('oL',email)}
 function logout(){localStorage.removeItem('oL');location.reload()}
-if(localStorage.getItem('oL'))S(localStorage.getItem('oL'));
-
-// HUMAN VOICE SERVICE
-let script=[
-{a:'ai', t:'Namaste Amit sir, main Orbit se bol raha hu, aapki team se, aapne jo black t-shirt order kiya tha na?'},
-{a:'human', t:'Haan kiya tha, par main office me hu, ghar pe koi nahi hai abhi.'},
-{a:'ai', t:'Bilkul samajh gaya sir, isiliye maine call kiya. Dekho sir, aapka delivery boy aapke Kurla area me hi hai, bas 500 meter dur hai. Agar aap 10 minute ka time de do to main usko rok leta hu?'},
-{a:'human', t:'10 minute me to nahi ho payega yaar, 1 ghanta lagega.'},
-{a:'ai', t:'Thik hai sir, koi baat nahi. Ek kaam karta hu - main aapko WhatsApp pe uska live location bhej deta hu, aur is order pe aapko ₹50 off de deta hu, kyunki aap regular customer ho. Aur agli baar se prepaid karoge to 10% extra off, thik hai?'},
-{a:'human', t:'Arre waah, location bhejo, main security ko bol deta hu lene ke liye.'},
-{a:'ai', t:'Done sir! WhatsApp pe bhej diya. Security se bol dijiye OTP 7842 hai. Order confirm kar du sir?'},
-{a:'human', t:'Haan kar do, aur ₹50 discount laga dena.'},
-{a:'ai', t:'Perfect sir, order saved! Aapko 30 minute me delivery mil jayegi. Thank you sir, aapka din accha ho!'}
-];
-async function start(){
-let box=document.getElementById('trans'); box.innerHTML=''; document.getElementById('status').innerText='● CONNECTED • HUMAN VOICE ACTIVE';
-for(let i=0;i<script.length;i++){
-let s=script[i];
-let d=document.createElement('div'); d.className='line'; d.innerHTML=`<span class="who ${s.a=='ai'?'ai':'cust'}">${s.a=='ai'?'AI MANAGER':'CUSTOMER'}</span><span id="t${i}" style="flex:1"></span>`;
-box.appendChild(d); box.scrollTop=box.scrollHeight;
-let el=document.getElementById('t'+i);
-for(let c=0;c<s.t.length;c++){el.textContent+=s.t[c]; await new Promise(r=>setTimeout(r,16+Math.random()*25)); box.scrollTop=box.scrollHeight;}
-if('speechSynthesis' in window){
-let u=new SpeechSynthesisUtterance(s.t); u.lang='en-IN'; u.rate=0.92; u.pitch=s.a=='ai'?0.85:1.1; speechSynthesis.speak(u);
-}
-await new Promise(r=>setTimeout(r,800));
-if(i==2){document.querySelectorAll('.t')[1].className='t done'; document.querySelectorAll('.t')[2].className='t active';}
-if(i==4){document.querySelectorAll('.t')[2].className='t done'; document.querySelectorAll('.t')[3].className='t done';}
-}
-let done=document.createElement('div'); done.style.cssText='margin-top:12px;background:linear-gradient(90deg, rgba(34,197,94,0.15), rgba(34,197,94,0.08));border:1px solid rgba(34,197,94,0.3);padding:12px;border-radius:14px;text-align:center';
-done.innerHTML=`<b style="color:#4ade80;font-size:13px">✅ SERVICE COMPLETE - ORDER SAVED</b><br><span class="mono" style="font-size:11px;color:#cbd5e1">Revenue Protected: ₹1,499 • Shipping Saved: ₹150 • Customer Happy • WhatsApp Sent • ₹50 Coupon Applied<br>Real human negotiation - No robotic voice - Saved by Hinglish</span>`;
-box.appendChild(done);
-document.getElementById('status').innerText='● SAVED • ₹1,649 Protected';
-}
-function vc(){
-let txt=`ORBITTRONIZ - VOICE RTO SERVICE - VC PITCH
-Problem: 35% COD returns = ₹1500 Cr loss/year for D2C India
-Solution: AI Voice Agent calls customer in Hinglish like human manager, negotiates, saves order
-How: Risk AI (92% accuracy) + Voice AI (Hinglish) + WhatsApp + Location
-Traction: 51 brands, ₹12.3L saved, 412 orders saved, 92% success
-Business Model: ₹30 per saved order, cost ₹1.5, profit ₹28.5 = 95% margin
-MRR: ₹12.3L with 10 brands, TAM: 50,000 D2C brands in India
-Ask: ₹80L seed for Exotel voice infra + 2 sales
-Use: API integration with Shiprocket, Shopify - 1 line code
-Unfair Advantage: Only voice agent in Hinglish, US tools fail in Hindi
-Contact: Orbittroniz Enterprise - Live Demo Ready`;
-let b=new Blob([txt],{type:'text/plain'}); let u=URL.createObjectURL(b); let a=document.createElement('a'); a.href=u; a.download='Orbittroniz-VC-Pitch-Enterprise.txt'; a.click();
-}
+let L=localStorage.getItem('oL');if(L)S(L);
 </script></body></html>
