@@ -1,114 +1,31 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Orbittroniz</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Outfit',sans-serif}
-body{min-height:100vh;background:#020412;overflow:hidden;display:flex;flex-direction:column}
-.bg{position:fixed;inset:0;background:radial-gradient(ellipse at 50% -10%, #1e3a8a 0%, #0f1a4a 25%, #020412 70%)}
-.stars{position:fixed;inset:0;opacity:0.5;background-image:radial-gradient(1px 1px at 20% 30%, #3b82f6, transparent),radial-gradient(1px 1px at 80% 20%, #60a5fa, transparent)}
-.scene{position:relative;z-index:2;flex:1;display:flex;align-items:center;justify-content:center}
-.orb-wrap{position:relative;width:260px;height:260px;animation:floatMain 6s ease-in-out infinite}
-@keyframes floatMain{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
-.sphere{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.25), rgba(96,165,250,0.15) 20%, rgba(30,58,138,0.4) 60%, rgba(2,4,18,0.9) 90%);box-shadow:0 0 80px rgba(59,130,246,0.5);border:1px solid rgba(147,197,253,0.2)}
-.ring{position:absolute;top:50%;left:50%;width:140%;height:32%;border-radius:50%;border-top:2px solid #60a5fa;transform:translate(-50%,-50%) rotateX(75deg);animation:ringRotate 8s linear infinite}
-@keyframes ringRotate{to{transform:translate(-50%,-50%) rotateX(75deg) rotateZ(360deg)}}
-.chip{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:88px;height:88px;background:linear-gradient(135deg, #0f172a, #1e293b);border:1px solid rgba(59,130,246,0.5);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 25px rgba(59,130,246,0.6);animation:chipGlow 2s ease-in-out infinite}
-@keyframes chipGlow{0%,100%{box-shadow:0 0 25px rgba(59,130,246,0.6)}50%{box-shadow:0 0 40px rgba(168,85,247,0.8)}}
-.chip b{font-size:34px;font-weight:800;animation:colorChange 4s linear infinite}
-@keyframes colorChange{0%{color:#38bdf8;text-shadow:0 0 12px #38bdf8}25%{color:#a78bfa;text-shadow:0 0 12px #a78bfa}50%{color:#60a5fa;text-shadow:0 0 12px #60a5fa}75%{color:#f472b6;text-shadow:0 0 12px #f472b6}100%{color:#38bdf8;text-shadow:0 0 12px #38bdf8}}
-.chip span{font-size:7px;letter-spacing:2px;color:#93c5fd;margin-top:2px;font-weight:700}
-.blink-dot{position:absolute;top:8px;right:8px;width:8px;height:8px;background:#22c55e;border-radius:50%;box-shadow:0 0 8px #22c55e;animation:blinkDot 1s ease-in-out infinite}
-@keyframes blinkDot{0%,100%{opacity:1}50%{opacity:0.2}}
-.form-wrap{position:relative;z-index:3;background:linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(2,4,18,0.95) 100%);backdrop-filter:blur(40px);border-top:1px solid rgba(255,255,255,0.08);border-radius:32px 32px 0 0;padding:28px 22px 32px}
-h1{font-size:34px;font-weight:800;text-align:center;background:linear-gradient(180deg, #fff, #93c5fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.sub{color:#64748b;text-align:center;font-size:14px;margin:6px 0 20px}
-.tabs{display:flex;background:rgba(0,0,0,0.5);border-radius:14px;padding:4px;margin-bottom:18px}
-.tab{flex:1;padding:12px;text-align:center;border-radius:10px;font-weight:700;font-size:14px;color:#475569;cursor:pointer}
-.tab.a{background:#fff;color:#000}
-input{width:100%;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.08);border-radius:14px;padding:15px;color:#fff;font-size:15px;margin-bottom:12px;outline:none}
-input:focus{border-color:#3b82f6}
-.btn{width:100%;background:#fff;color:#000;border:none;border-radius:14px;padding:15px;font-weight:800;font-size:15px;cursor:pointer}
-.btn2{background:linear-gradient(90deg, #3b82f6, #6366f1);color:#fff;margin-top:10px}
-.msg{text-align:center;font-size:13px;min-height:18px;margin-top:10px}
-.hide{display:none}
+body { background: #0a0f1f; color: white; font-family: sans-serif; margin:0; height:100vh; display:flex; flex-direction:column; justify-content:space-between; align-items:center; overflow:hidden; }
+.center-logo { flex:1; display:flex; align-items:center; justify-content:center; }
+.logo-box { background: #1a233a; width: 120px; height:120px; border-radius:20px; display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow: 0 0 40px #3b5bff33; }
+.bottom-sheet { background: #111827; width:100%; border-radius:30px 30px 0 0; padding:25px; text-align:center; }
+.logout-btn { background: linear-gradient(90deg, #4f46e5, #7c3aed); width:100%; padding:15px; border-radius:12px; color:white; border:none; font-weight:bold; font-size:16px; }
 </style>
 </head>
 <body>
-<div class="bg"></div>
-<div class="stars"></div>
-<div class="scene">
-<div class="orb-wrap">
-<div class="ring"></div>
-<div class="sphere"></div>
-<div class="chip">
-<div class="blink-dot"></div>
-<b>O</b>
-<span>ORBITTRONIZ</span>
+<div class="center-logo">
+  <div class="logo-box">
+    <div style="width:40px; height:40px; border:4px solid #a78bfa; border-radius:50%;"></div>
+    <small style="margin-top:10px; letter-spacing:3px; color:#93c5fd;">ORBITTRONIZ</small>
+  </div>
 </div>
-</div>
-</div>
-<div class="form-wrap" id="aBox">
-<h1>Orbittroniz</h1>
-<p class="sub">Your AI creative universe • No watermark</p>
-<div class="tabs">
-<div class="tab" id="tL" onclick="M('login')">Login</div>
-<div class="tab a" id="tS" onclick="M('signup')">Sign Up</div>
-</div>
-<input id="e" placeholder="Email address">
-<input id="p" type="password" placeholder="Password • min 6 chars">
-<button class="btn" id="b" onclick="H()">Create Account →</button>
-<div class="msg" id="m"></div>
-</div>
-<div class="form-wrap hide" id="dBox" style="display:none;text-align:center">
-<h1>Welcome 👋</h1>
-<p class="sub" id="ue"></p>
-<p style="color:#4ade80;margin:14px 0">✅ Login Successful</p>
-  <a href="collection-ai.html" style="display:block; background:white; color:black; padding:15px; border-radius:12px; font-weight:bold; text-align:center; margin:10px 0; text-decoration:none; font-size:16px;">🤖 Open Sunita AI Dashboard</a>
-<button class="btn btn2" onclick="logout()">Logout</button>
+<div class="bottom-sheet">
+  <h1 style="margin:0;">Welcome 👋</h1>
+  <small style="color:#9ca3af;">stevenalphanso1812@gmail.com</small>
+  <p style="color:#4ade80; margin:15px 0;">✅ Login Successful</p>
+  <button class="logout-btn" onclick="logout()">Logout</button>
 </div>
 <script>
-let mode='signup';
-function M(m){
-mode=m;
-document.getElementById('tL').className=m=='login'?'tab a':'tab';
-document.getElementById('tS').className=m=='signup'?'tab a':'tab';
-document.getElementById('b').innerText=m=='login'?'Login →':'Create Account →';
-}
-function H(){
-let e=document.getElementById('e').value.trim();
-let p=document.getElementById('p').value;
-let m=document.getElementById('m');
-if(!e.includes('@')||p.length<6){
-m.innerHTML='<span style=color:#fca5a5>Valid email + 6 char pass</span>';
-return;
-}
-if(mode=='signup'){
-localStorage.setItem('oU',JSON.stringify({e,p}));
-m.innerHTML='<span style=color:#4ade80>✓ Account created</span>';
-setTimeout(()=>S(e),500);
-}else{
-let u=JSON.parse(localStorage.getItem('oU')||'null');
-if(u&&u.e==e&&u.p==p){S(e)}else{m.innerHTML='<span style=color:#fca5a5>Wrong or signup first</span>'}
-}
-}
-function S(email){
-document.getElementById('aBox').style.display='none';
-let d=document.getElementById('dBox');
-d.style.display='block';
-d.classList.remove('hide');
-document.getElementById('ue').innerText=email;
-localStorage.setItem('oL',email);
-}
-function logout(){
-localStorage.removeItem('oL');
-location.reload();
-}
-let L=localStorage.getItem('oL');
-if(L){S(L)}
+function logout(){ localStorage.clear(); location.reload(); }
 </script>
 </body>
 </html>
