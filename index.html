@@ -1,99 +1,49 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Orbittroniz</title>
 <style>
-  *{box-sizing:border-box; margin:0; padding:0;}
-  body{
-    background:#050a18;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-    height:100dvh; display:flex; flex-direction:column;
-    overflow:hidden; color:white;
-  }
-  /* CENTER ORBIT LOGO - From 2nd Image */
-  .center-wrap{
-    flex:1; display:flex; align-items:center; justify-content:center;
-    position:relative;
-    background: radial-gradient(ellipse at center, #16214a 0%, #0a1228 40%, #050a18 70%);
-  }
-  .orbit-big{
-    width:340px; height:340px; border-radius:50%;
-    border:1px solid rgba(120,140,255,0.12);
-    display:flex; align-items:center; justify-content:center;
-    position:relative;
-    background: radial-gradient(circle at center, rgba(60,90,200,0.18) 0%, rgba(10,20,50,0.1) 60%, transparent 70%);
-  }
-  .orbit-big::before{
-    content:""; position:absolute; width:120%; height:1px;
-    background:linear-gradient(90deg, transparent, rgba(150,180,255,0.4), transparent);
-    top:50%; left:-10%; transform:rotate(-8deg);
-    box-shadow:0 0 10px rgba(120,160,255,0.3);
-  }
-  .logo-card{
-    width:115px; height:115px; background:#0f1a32;
-    border-radius:20px; display:flex; flex-direction:column;
-    align-items:center; justify-content:center;
-    border:1px solid rgba(100,130,255,0.15);
-    box-shadow:0 0 30px rgba(80,120,255,0.25), 0 0 60px rgba(40,60,150,0.15);
-    position:relative; z-index:2;
-  }
-  .logo-circle{
-    width:42px; height:42px; border-radius:50%;
-    background:radial-gradient(circle, #7aa8ff 0%, #4a7bff 100%);
-    display:flex; align-items:center; justify-content:center;
-    box-shadow:0 0 15px #6a8cff, inset 0 0 10px rgba(255,255,255,0.4);
-  }
-  .logo-circle::after{
-    content:""; width:18px; height:18px; background:#0f1a32; border-radius:50%;
-  }
-  .logo-text{
-    margin-top:14px; font-size:9px; letter-spacing:2.8px;
-    color:#9ab4ff; font-weight:700;
-  }
-  .dot-green{
-    position:absolute; top:10px; right:10px; width:8px; height:8px;
-    background:#22c55e; border-radius:50%; box-shadow:0 0 8px #22c55e;
-  }
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#060a1a;color:#fff;font-family:sans-serif;height:100dvh;display:flex;flex-direction:column;overflow:hidden}
 
-  /* BOTTOM SHEET - Fixed to show logout fully */
-  .sheet{
-    background:#10182f; border-radius:28px 28px 0 0;
-    padding:24px 20px 34px 20px; text-align:center;
-    border-top:1px solid rgba(255,255,255,0.06);
-    flex-shrink:0;
-  }
-  .sheet h1{ font-size:32px; font-weight:800; letter-spacing:-0.5px; }
-  .sheet .email{ color:#8892b0; font-size:14px; margin-top:4px; display:block; }
-  .success{ color:#4ade80; margin:18px 0 20px 0; font-weight:600; font-size:16px; }
-  .logout-btn{
-    width:100%; background:linear-gradient(90deg, #6366f1, #8b5cf6);
-    color:white; border:none; padding:17px; border-radius:14px;
-    font-size:16px; font-weight:700; cursor:pointer;
-    box-shadow:0 4px 20px rgba(99,102,241,0.35);
-  }
+/* TOP PART - EXACT LIKE 2ND IMAGE */
+.top{flex:1;position:relative;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 0%, #1a2a6a 0%, #101a3d 25%, #060a1a 60%)}
+.big-circle{width:320px;height:320px;border-radius:50%;border:1px solid rgba(120,140,200,0.18);position:absolute;background:radial-gradient(circle, rgba(50,70,150,0.25) 0%, rgba(20,30,70,0.1) 50%, transparent 70%);box-shadow:inset 0 0 80px rgba(60,90,180,0.15)}
+.orbit-line{position:absolute;width:140%;height:1px;background:linear-gradient(90deg, transparent 5%, rgba(180,200,255,0.7) 50%, transparent 95%);top:52%;transform:rotate(-5deg);opacity:0.6}
+
+/* LOGO CARD - EXACT FROM 2ND IMAGE */
+.card{width:108px;height:108px;background:#121d38;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;z-index:5;box-shadow:0 0 25px rgba(70,110,255,0.35);border:1px solid rgba(100,130,200,0.2)}
+.card-dot{position:absolute;top:8px;right:8px;width:7px;height:7px;background:#3dd68c;border-radius:50%}
+.o-outer{width:36px;height:36px;border-radius:50%;background:#7aa2ff;display:flex;align-items:center;justify-content:center;box-shadow:0 0 12px #7aa2ff}
+.o-inner{width:16px;height:16px;background:#121d38;border-radius:50%}
+.card-text{margin-top:12px;font-size:8.5px;letter-spacing:2.2px;color:#a8c0ff;font-weight:700}
+
+/* BOTTOM - FIXED SO LOGOUT IS VISIBLE */
+.bottom{background:#0e1731;padding:22px 18px 30px 18px;border-radius:28px 28px 0 0;text-align:center}
+.bottom h1{font-size:31px;font-weight:800}
+.email{color:#7a859e;font-size:13px;margin-top:2px;display:block}
+.ok{color:#4ade80;margin:16px 0 18px 0;font-weight:600}
+.logout{width:100%;padding:16px;background:linear-gradient(90deg,#5a5bff,#8a4dff);border:none;border-radius:13px;color:white;font-size:16px;font-weight:700}
 </style>
 </head>
 <body>
-
-<div class="center-wrap">
-  <div class="orbit-big">
-    <div class="logo-card">
-      <div class="dot-green"></div>
-      <div class="logo-circle"></div>
-      <span class="logo-text">ORBITTRONIZ</span>
-    </div>
+<div class="top">
+  <div class="big-circle"></div>
+  <div class="orbit-line"></div>
+  <div class="card">
+    <div class="card-dot"></div>
+    <div class="o-outer"><div class="o-inner"></div></div>
+    <div class="card-text">ORBITTRONIZ</div>
   </div>
 </div>
-
-<div class="sheet">
+<div class="bottom">
   <h1>Welcome 👋</h1>
   <span class="email">stevenalphanso1812@gmail.com</span>
-  <div class="success">✅ Login Successful</div>
-  <button class="logout-btn" onclick="localStorage.clear(); location.reload();">Logout</button>
+  <div class="ok">✅ Login Successful</div>
+  <button class="logout" onclick="localStorage.clear();location.reload()">Logout</button>
 </div>
-
 </body>
 </html>
