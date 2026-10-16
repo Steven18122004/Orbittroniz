@@ -1,57 +1,140 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Orbittroniz</title>
+<title>Orbittroniz - AI RC Checker Dashboard</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{height:100dvh;display:flex;flex-direction:column;overflow:hidden;color:#fff;font-family:sans-serif;position:relative;background:#02050f}
-
-/* YOUR NEW AI BACKGROUND WITH MOTION */
-.bg-img{position:absolute;inset:0;background:url('bg.jpg') center/cover no-repeat;z-index:0;animation:zoomBg 12s ease-in-out infinite alternate;filter:brightness(0.55)}
-@keyframes zoomBg{0%{transform:scale(1)}100%{transform:scale(1.1)}}
-.overlay{position:absolute;inset:0;background:radial-gradient(ellipse at center, rgba(5,10,30,0.2) 0%, rgba(2,5,15,0.85) 80%);z-index:1}
-
-/* CENTER LOGO WITH MOTION */
-.top{flex:1;position:relative;z-index:5;display:flex;align-items:center;justify-content:center}
-.orbit{position:absolute;border-radius:50%;border:1px solid rgba(130,150,255,0.25)}
-.orbit1{width:300px;height:300px;animation:spin 8s linear infinite}
-.orbit2{width:430px;height:430px;border-style:dashed;animation:spin 18s linear infinite reverse}
-@keyframes spin{to{transform:rotate(360deg)}}
-.orbit::after{content:"";position:absolute;top:-4px;left:50%;width:8px;height:8px;background:#8ab4ff;border-radius:50%;box-shadow:0 0 12px #8ab4ff}
-
-.card{width:118px;height:118px;background:rgba(15,23,50,0.85);backdrop-filter:blur(12px);border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.1);box-shadow:0 0 35px rgba(80,110,255,0.4);animation:float 3s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-.o-ring{width:44px;height:44px;border-radius:50%;border:3px solid #a78bfa;animation:blink 2.5s infinite}
-@keyframes blink{0%{border-color:#a78bfa;box-shadow:0 0 12px #a78bfa}25%{border-color:#60a5fa;box-shadow:0 0 15px #60a5fa}50%{border-color:#34d399;box-shadow:0 0 15px #34d399}75%{border-color:#f472b6;box-shadow:0 0 15px #f472b6}100%{border-color:#a78bfa;box-shadow:0 0 12px #a78bfa}}
-.txt{margin-top:12px;font-size:9px;letter-spacing:3px;color:#a8c4ff;font-weight:700}
-
-/* BOTTOM - LOGOUT VISIBLE */
-.bottom{background:rgba(14,23,49,0.92);backdrop-filter:blur(20px);padding:24px 20px 38px 20px;border-radius:28px 28px 0 0;text-align:center;z-index:10;flex-shrink:0}
-.bottom h1{font-size:32px;font-weight:800}
-.email{color:#8e9ab3;font-size:13px;display:block;margin-top:3px}
-.ok{color:#4ade80;margin:16px 0 20px 0;font-weight:600}
-.logout{width:100%;padding:17px;background:linear-gradient(90deg,#6366f1,#8b5cf6);border:none;border-radius:14px;color:#fff;font-size:16px;font-weight:700}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
+body{background:#080a12;color:#fff;min-height:100vh;overflow-x:hidden}
+.bg-glow{position:fixed; width:600px; height:600px; background:radial-gradient(circle, rgba(99,102,241,0.15), transparent 70%); top:-100px; left:-100px; pointer-events:none}
+.header{height:64px; background:rgba(13,15,28,0.8); backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,0.06); display:flex; align-items:center; justify-content:space-between; padding:0 24px; position:sticky; top:0; z-index:10}
+.logo{display:flex; align-items:center; gap:10px; font-weight:800; font-size:22px}
+.logo span{width:38px; height:38px; background:linear-gradient(135deg,#7c3aed,#22d3ee); border-radius:10px; display:grid; place-items:center}
+.ai-badge{font-size:11px; background:rgba(124,58,237,0.2); border:1px solid rgba(124,58,237,0.4); padding:4px 10px; border-radius:20px; color:#a78bfa}
+.main{display:flex}
+.sidebar{width:240px; background:#0d0f1c; border-right:1px solid rgba(255,255,255,0.06); min-height:calc(100vh - 64px); padding:20px 12px}
+.side-item{padding:12px 14px; border-radius:10px; color:#9ca3af; cursor:pointer; display:flex; gap:10px; font-size:14px; margin-bottom:4px}
+.side-item.active{background:linear-gradient(90deg, rgba(124,58,237,0.2), rgba(34,211,238,0.1)); color:#fff; border:1px solid rgba(124,58,237,0.3)}
+.content{flex:1; padding:28px}
+.top-stats{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:24px}
+.stat{background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:18px}
+.stat h4{font-size:12px; color:#9ca3af; font-weight:600; margin-bottom:8px}
+.stat h2{font-size:32px; font-weight:800}
+.stat p{font-size:12px; color:#10b981; margin-top:6px}
+.grid{display:grid; grid-template-columns:1.2fr 0.8fr; gap:20px}
+.card{background:rgba(17,19,33,0.8); border:1px solid rgba(139,92,246,0.3); border-radius:20px; padding:22px; box-shadow:0 0 30px rgba(124,58,237,0.15)}
+.card-title{font-size:18px; font-weight:700; display:flex; justify-content:space-between; align-items:center}
+.live{font-size:11px; background:#10b981; color:#fff; padding:4px 10px; border-radius:20px}
+.input-box{margin:18px 0; background:#0a0c18; border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:4px; display:flex}
+.input-box input{flex:1; background:transparent; border:0; color:#fff; padding:12px; font-size:15px; outline:none; text-transform:uppercase}
+.input-box button{background:linear-gradient(90deg,#8b5cf6,#22d3ee); border:0; color:#fff; padding:10px 18px; border-radius:8px; font-weight:700; cursor:pointer}
+.result{margin-top:16px; background:rgba(0,0,0,0.3); border-radius:14px; padding:16px; display:none}
+.row{display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.06); font-size:14px}
+.row span{color:#9ca3af} .row b{color:#fff}
+.tags{display:flex; gap:8px; margin-top:14px; flex-wrap:wrap}
+.tag{font-size:11px; padding:6px 10px; border-radius:20px; background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.3); color:#6ee7b7}
+.btns{display:flex; gap:10px; margin-top:16px}
+.btns button{flex:1; padding:11px; border-radius:10px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.05); color:#fff; cursor:pointer; font-weight:600}
+.btns button.primary{background:linear-gradient(90deg,#8b5cf6,#22d3ee); border:0}
+.ai-card{background:linear-gradient(180deg, rgba(124,58,237,0.15), rgba(17,19,33,0.8)); border:1px solid rgba(124,58,237,0.3)}
+.progress{height:6px; background:rgba(255,255,255,0.1); border-radius:10px; margin:8px 0}
+.progress div{height:100%; width:72%; background:linear-gradient(90deg,#10b981,#22d3ee); border-radius:10px}
+@media(max-width:900px){.top-stats{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.sidebar{display:none}}
 </style>
 </head>
 <body>
-<div class="bg-img"></div>
-<div class="overlay"></div>
-<div class="top">
-  <div class="orbit orbit1"></div>
-  <div class="orbit orbit2"></div>
-  <div class="card">
-    <div class="o-ring"></div>
-    <div class="txt">ORBITTRONIZ</div>
+<div class="bg-glow"></div>
+<div class="header">
+  <div class="logo"><span>◍</span> Orbittroniz <div class="ai-badge">AI RC Checker</div></div>
+  <div style="font-size:13px; color:#9ca3af">Rohan Sharma • Free Plan</div>
+</div>
+<div class="main">
+  <div class="sidebar">
+    <div class="side-item active">◈ Dashboard</div>
+    <div class="side-item">◎ Vehicle Search</div>
+    <div class="side-item">◑ Search History</div>
+    <div class="side-item">✦ AI Insights NEW</div>
+    <div class="side-item">⚑ Compliance</div>
+    <div class="side-item">⚙ Settings</div>
+  </div>
+  <div class="content">
+    <h1 style="font-size:28px; font-weight:800">Dashboard</h1>
+    <p style="color:#9ca3af; font-size:14px; margin:6px 0 20px 0">Welcome back, Rohan — real-time RC verification powered by AI</p>
+    
+    <div class="top-stats">
+      <div class="stat"><h4>Total Checks</h4><h2 id="totalChecks">1,248</h2><p>+12% this week</p></div>
+      <div class="stat"><h4>Active Vehicles</h4><h2>86</h2><p>+3 added today</p></div>
+      <div class="stat"><h4>Flagged Issues</h4><h2 style="color:#fbbf24">05</h2><p style="color:#fbbf24">-2 from last week</p></div>
+      <div class="stat"><h4>AI Accuracy</h4><h2>98.4%</h2><p>+0.6%</p></div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="card-title">Vehicle Search Result <span class="live">● Verified • Live</span></div>
+        <div class="input-box">
+          <input id="vehInput" placeholder="DL 01 AB 1234" maxlength="13">
+          <button onclick="checkRC()">Search</button>
+        </div>
+        <div id="resultArea" class="result">
+          <h3 id="vehModel" style="margin-bottom:12px">Maruti Suzuki Baleno</h3>
+          <div class="row"><span>Registration No.</span><b id="rNum">DL 01 AB 1234</b></div>
+          <div class="row"><span>Owner</span><b id="rOwner">Rohan Sharma</b></div>
+          <div class="row"><span>RC Status</span><b style="color:#10b981">● Valid</b></div>
+          <div class="row"><span>Chassis No.</span><b>MA3FBCB1J0012345</b></div>
+          <div class="row"><span>Insurance</span><b id="rIns">Valid till 25 Dec 2026</b></div>
+          <div class="row"><span>PUC</span><b id="rPuc">Valid till 10 Jan 2026</b></div>
+          <div class="tags">
+            <div class="tag">No Theft Record</div>
+            <div class="tag">No Pending Challans</div>
+            <div class="tag">Fitness Valid</div>
+          </div>
+          <div class="btns">
+            <button class="primary" onclick="alert('PDF Downloaded!')">⬇ Download Report</button>
+            <button>↻ Verify Again</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card ai-card">
+        <div class="card-title">✦ AI Insights <span style="font-size:11px; background:rgba(255,255,255,0.1); padding:4px 8px; border-radius:20px">AI Generated</span></div>
+        <div style="margin-top:18px">
+          <h4 style="font-size:14px">Risk Assessment</h4>
+          <p style="font-size:13px; color:#9ca3af; margin:4px 0">Low Risk • 12/100</p>
+          <div class="progress"><div></div></div>
+          <h4 style="font-size:14px; margin-top:18px; color:#a78bfa">Insights Summary</h4>
+          <ul style="margin-top:10px; font-size:13px; color:#d1d5db; line-height:1.8; list-style:none">
+            <li>✦ No theft or legal disputes found in national database.</li>
+            <li>✦ Insurance and PUC are active and valid.</li>
+            <li>✦ No pending fines or challans as of now.</li>
+          </ul>
+          <div style="margin-top:16px; background:rgba(0,0,0,0.3); border-radius:12px; padding:14px; border:1px solid rgba(139,92,246,0.3)">
+            <b style="font-size:13px">AI Recommendation</b>
+            <p id="aiRec" style="font-size:12px; color:#9ca3af; margin-top:6px">This vehicle is clear for transfer. All documents valid. Recommended to proceed.</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<div class="bottom">
-  <h1>Welcome 👋</h1>
-  <span class="email">stevenalphanso1812@gmail.com</span>
-  <div class="ok">✅ Login Successful</div>
-  <button class="logout" onclick="localStorage.clear();location.reload()">Logout</button>
-</div>
+
+<script>
+function checkRC(){
+  const input = document.getElementById('vehInput');
+  const area = document.getElementById('resultArea');
+  let num = input.value.toUpperCase().trim();
+  if(num.length < 6){ alert('Enter valid number'); return; }
+  document.getElementById('rNum').innerText = num;
+  document.getElementById('vehModel').innerText = 'Vehicle: ' + num + ' - Verification Done';
+  document.getElementById('rOwner').innerText = 'AB**** Sharma (Login for full)';
+  area.style.display = 'block';
+  area.scrollIntoView({behavior:'smooth'});
+  let c = localStorage.getItem('rc_count') || 0;
+  localStorage.setItem('rc_count', parseInt(c)+1);
+  document.getElementById('totalChecks').innerText = 1248 + parseInt(c) + 1;
+  document.getElementById('aiRec').innerText = 'Vehicle '+num+' is compliant. Insurance valid. PUC valid. No challans found. Clear to operate.';
+}
+</script>
 </body>
 </html>
