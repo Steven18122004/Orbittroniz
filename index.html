@@ -22,7 +22,6 @@ body{background:#080a12;color:#fff;min-height:100vh}
 .input{width:100%;background:#080a12;border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:13px;color:#fff;font-size:14px;outline:none}
 .input:focus{border-color:#8b5cf6}
 .btn{width:100%;margin-top:18px;background:linear-gradient(90deg,#8b5cf6,#22d3ee);border:0;color:#fff;padding:13px;border-radius:12px;font-weight:800;cursor:pointer}
-.btn:active{transform:scale(0.98)}
 .error{font-size:12px;color:#f87171;margin-top:8px;display:none}
 .note{font-size:11px;color:#6b7280;text-align:center;margin-top:12px}
 
@@ -35,59 +34,54 @@ body{background:#080a12;color:#fff;min-height:100vh}
 .s-item.active{background:linear-gradient(90deg,rgba(124,58,237,0.2),rgba(34,211,238,0.08));color:#fff;border:1px solid rgba(124,58,237,0.25)}
 .content{flex:1;padding:24px}
 .tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
-.tool-card{background:linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:20px;cursor:pointer;transition:all.2s}
+.tool-card{background:linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:20px;cursor:pointer;transition:all .2s}
 .tool-card:hover{border-color:#8b5cf6;transform:translateY(-3px);box-shadow:0 10px 30px rgba(124,58,237,0.15)}
 .tool-card h3{font-size:15px;margin:10px 0 4px 0}
 .tool-card p{font-size:12px;color:#9ca3af}
 .tool-icon{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:20px}
 .badge{font-size:10px;background:#10b981;color:#fff;padding:3px 8px;border-radius:20px;margin-left:6px}
 
-/* RC TOOL PAGE */
-#rcPage{display:none}
-.rc-wrapper{display:grid;grid-template-columns:1.2fr 0.8fr;gap:18px}
+/* TOOL PAGES */
+.tool-page{display:none}
+.back{ background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#fff;padding:8px 12px;border-radius:8px;font-size:12px;cursor:pointer;margin-bottom:16px}
+.wrapper{display:grid;grid-template-columns:1.2fr 0.8fr;gap:18px}
 .card{background:rgba(17,19,33,0.9);border:1px solid rgba(139,92,246,0.28);border-radius:20px;padding:20px}
 .title{font-weight:700;display:flex;justify-content:space-between;align-items:center}
 .live{font-size:10px;background:#10b981;color:#fff;padding:4px 9px;border-radius:20px}
-.input-wrap{margin:16px 0;background:#080a12;border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:5px;display:flex}
-.input-wrap input{flex:1;background:transparent;border:0;color:#fff;padding:12px;font-size:15px;font-weight:700;outline:none;text-transform:uppercase}
+.input-wrap{margin:16px 0;background:#080a12;border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:5px;display:flex;gap:6px}
+.input-wrap input, .input-wrap select{flex:1;background:transparent;border:0;color:#fff;padding:12px;font-size:14px;font-weight:600;outline:none}
 .input-wrap button{background:linear-gradient(90deg,#8b5cf6,#22d3ee);border:0;color:#fff;padding:0 18px;border-radius:10px;font-weight:800;cursor:pointer;min-height:42px}
-.tabs{display:flex;gap:8px;margin:14px 0}
+.tabs{display:flex;gap:8px;margin:14px 0;flex-wrap:wrap}
 .tab{padding:8px 12px;border-radius:20px;font-size:11px;cursor:pointer;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);color:#9ca3af}
 .tab.active{background:#fff;color:#111;font-weight:700}
-.result{display:none}
-.result.show{display:block}
+.result{display:none}.result.show{display:block}
 .row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px}
 .row span{color:#9ca3af}.row b{color:#fff}
-.progress{height:6px;background:rgba(255,255,255,0.08);border-radius:10px;margin:8px 0}.progress div{height:100%;background:linear-gradient(90deg,#10b981,#22d3ee);border-radius:10px}
-@media(max-width:900px){.tools-grid{grid-template-columns:1fr}.rc-wrapper{grid-template-columns:1fr}.sidebar{display:none}}
+.challan-item{background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:12px;margin-top:10px}
+@media(max-width:900px){.tools-grid{grid-template-columns:1fr}.wrapper{grid-template-columns:1fr}.sidebar{display:none}}
 </style>
 </head>
 <body>
 <div class="bg"></div>
 
-<!-- 1. LOGIN/SIGNUP SCREEN -->
+<!-- AUTH -->
 <div id="authScreen">
   <div class="auth-card">
     <div class="logo"><span>◍</span> Orbittroniz</div>
-    <p style="color:#9ca3af;font-size:13px;margin-top:6px">AI Transport Tools - Login to access 50+ tools</p>
-
+    <p style="color:#9ca3af;font-size:13px;margin-top:6px">AI Transport Suite - Login to access all tools</p>
     <div class="auth-tabs">
       <div id="tabLogin" class="auth-tab active" onclick="switchAuth('login')">Login</div>
       <div id="tabSignup" class="auth-tab" onclick="switchAuth('signup')">Signup</div>
     </div>
-
-    <label class="label">Email</label>
-    <input id="email" class="input" type="email" placeholder="you@orbittroniz.ai">
-    <label class="label">Password</label>
-    <input id="password" class="input" type="password" placeholder="Min 6 characters">
-
+    <label class="label">Email</label><input id="email" class="input" type="email" placeholder="you@orbittroniz.ai">
+    <label class="label">Password</label><input id="password" class="input" type="password" placeholder="Min 6 chars">
     <div id="authError" class="error">Error</div>
     <button id="authBtn" class="btn" type="button">Login →</button>
-    <p class="note">Demo: Use any email + password >6 chars. Your login is saved locally.</p>
+    <p class="note">Demo: Any email + pass >6 chars works. Login saved.</p>
   </div>
 </div>
 
-<!-- 2. DASHBOARD WITH TOOLS -->
+<!-- DASHBOARD -->
 <div id="dashboardScreen">
   <div class="header">
     <div class="logo"><span style="width:36px;height:36px;background:linear-gradient(135deg,#7c3aed,#22d3ee);border-radius:10px;display:grid;place-items:center">◍</span> Orbittroniz</div>
@@ -95,185 +89,191 @@ body{background:#080a12;color:#fff;min-height:100vh}
   </div>
   <div class="main">
     <div class="sidebar">
-      <div class="s-item active" onclick="showDashboard()">◈ Dashboard</div>
-      <div class="s-item" onclick="openRC()">◎ RC Checker</div>
-      <div class="s-item">◑ Challan Checker</div>
-      <div class="s-item">✦ AI Insights</div>
+      <div class="s-item active" id="side-dash" onclick="showDashboard()">◈ Dashboard</div>
+      <div class="s-item" id="side-rc" onclick="openTool('rc')">◎ RC Checker</div>
+      <div class="s-item" id="side-challan" onclick="openTool('challan')">🧾 Challan</div>
+      <div class="s-item" id="side-toll" onclick="openTool('toll')">🛣️ Toll Calc</div>
+      <div class="s-item" id="side-fuel" onclick="openTool('fuel')">⛽ Fuel Cost</div>
+      <div class="s-item" id="side-fastag" onclick="openTool('fastag')">💳 FASTag</div>
+      <div class="s-item" id="side-puc" onclick="openTool('puc')">🌿 PUC Check</div>
     </div>
     <div class="content">
-      <!-- TOOLS LIST -->
+
+      <!-- DASHBOARD TOOLS GRID -->
       <div id="toolsList">
-        <h1 style="font-size:26px;font-weight:800">Welcome to Orbittroniz AI</h1>
-        <p style="color:#9ca3af;font-size:13px;margin:6px 0 0 0">50+ RTO tools powered by AI • Choose a tool to start</p>
-
+        <h1 style="font-size:26px;font-weight:800">All Tools</h1>
+        <p style="color:#9ca3af;font-size:13px;margin:6px 0">6 AI Tools - Click to open. All working.</p>
         <div class="tools-grid">
-          <div class="tool-card" onclick="openRC()">
-            <div class="tool-icon" style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3)">🚗</div>
-            <h3>RC Checker <span class="badge">Live</span></h3>
-            <p>Get RTO, Owner, Insurance, PUC in 2 sec. AI Verified.</p>
-          </div>
-          <div class="tool-card">
-            <div class="tool-icon" style="background:rgba(34,211,238,0.12);border:1px solid rgba(34,211,238,0.2)">🧾</div>
-            <h3>Challan Checker</h3>
-            <p>Check pending e-challans by vehicle number.</p>
-          </div>
-          <div class="tool-card">
-            <div class="tool-icon" style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.2)">🛣️</div>
-            <h3>Toll Calculator</h3>
-            <p>Calculate toll for any route in India.</p>
-          </div>
-          <div class="tool-card">
-            <div class="tool-icon" style="background:rgba(251,191,36,0.12);border:1px solid rgba(251,191,36,0.2)">⛽</div>
-            <h3>Fuel Cost</h3>
-            <p>Diesel / Petrol cost calculator for fleet.</p>
-          </div>
+          <div class="tool-card" onclick="openTool('rc')"><div class="tool-icon" style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3)">🚗</div><h3>RC Checker <span class="badge">Live</span></h3><p>RTO, Owner, Insurance, PUC in 2 sec.</p></div>
+          <div class="tool-card" onclick="openTool('challan')"><div class="tool-icon" style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.2)">🧾</div><h3>Challan Checker <span class="badge" style="background:#ef4444">New</span></h3><p>Pending e-challans + fine amount.</p></div>
+          <div class="tool-card" onclick="openTool('toll')"><div class="tool-icon" style="background:rgba(34,211,238,0.12);border:1px solid rgba(34,211,238,0.2)">🛣️</div><h3>Toll Calculator</h3><p>Mumbai to Delhi toll + route.</p></div>
+          <div class="tool-card" onclick="openTool('fuel')"><div class="tool-icon" style="background:rgba(251,191,36,0.12);border:1px solid rgba(251,191,36,0.2)">⛽</div><h3>Fuel Cost</h3><p>Trip cost by diesel / petrol.</p></div>
+          <div class="tool-card" onclick="openTool('fastag')"><div class="tool-icon" style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.2)">💳</div><h3>FASTag Check</h3><p>Check FASTag status & balance.</p></div>
+          <div class="tool-card" onclick="openTool('puc')"><div class="tool-icon" style="background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.2)">🌿</div><h3>PUC Checker</h3><p>PUC validity & emission check.</p></div>
         </div>
       </div>
 
-      <!-- 3. RC TOOL PAGE (OPENS WHEN CLICK RC) -->
-      <div id="rcPage">
-        <button onclick="showDashboard()" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#fff;padding:8px 12px;border-radius:8px;font-size:12px;cursor:pointer;margin-bottom:16px">← Back to Dashboard</button>
-
-        <div class="rc-wrapper">
+      <!-- RC TOOL -->
+      <div id="page-rc" class="tool-page">
+        <button class="back" onclick="showDashboard()">← Back to Dashboard</button>
+        <div class="wrapper">
           <div class="card">
-            <div class="title">RC Checker Tool <span class="live">● Verified • Live</span></div>
-            <div class="input-wrap">
-              <input id="vehInput" placeholder="MH01AB1234" maxlength="13">
-              <button id="searchBtn" type="button">Check RC</button>
-            </div>
-
-            <div class="tabs">
-              <div class="tab active" data-tab="rc">RC Info</div>
-              <div class="tab" data-tab="insurance">Insurance</div>
-              <div class="tab" data-tab="puc">PUC</div>
-              <div class="tab" data-tab="owner">Owner</div>
-            </div>
-
-            <div id="rcResult" class="result show">
-              <div id="tab-rc">
-                <div class="row"><span>Registration No.</span><b id="rNum">-</b></div>
-                <div class="row"><span>Vehicle Model</span><b id="rModel">-</b></div>
-                <div class="row"><span>RTO</span><b id="rRto">Andheri RTO MH02</b></div>
-                <div class="row"><span>Fuel Type</span><b id="rFuel">Diesel</b></div>
-                <div class="row"><span>RC Status</span><b style="color:#10b981">● Active</b></div>
-              </div>
-              <div id="tab-insurance" style="display:none">
-                <div class="row"><span>Insurer</span><b>HDFC Ergo</b></div>
-                <div class="row"><span>Policy No.</span><b>POL/2024/78912</b></div>
-                <div class="row"><span>Valid Till</span><b id="rIns" style="color:#fbbf24">-</b></div>
-              </div>
-              <div id="tab-puc" style="display:none">
-                <div class="row"><span>PUC No.</span><b>PUC/DL/98765</b></div>
-                <div class="row"><span>Valid Till</span><b id="rPuc">-</b></div>
-                <div class="row"><span>Emission</span><b>45.2 g/km - Within Limits</b></div>
-              </div>
-              <div id="tab-owner" style="display:none">
-                <div class="row"><span>Owner Name</span><b id="rOwner">-</b></div>
-                <div class="row"><span>Father Name</span><b>R*** KUMAR</b></div>
-                <div class="row"><span>Address</span><b>Mumbai, MH</b></div>
-              </div>
+            <div class="title">RC Checker <span class="live">● Verified</span></div>
+            <div class="input-wrap"><input id="rcInput" placeholder="MH01AB1234"><button id="rcBtn">Check RC</button></div>
+            <div class="tabs"><div class="tab active" onclick="switchRcTab('rc')">RC Info</div><div class="tab" onclick="switchRcTab('ins')">Insurance</div><div class="tab" onclick="switchRcTab('puc')">PUC</div><div class="tab" onclick="switchRcTab('owner')">Owner</div></div>
+            <div id="rcResult" class="result">
+              <div id="rc-tab-rc"><div class="row"><span>Number</span><b id="rcNum">-</b></div><div class="row"><span>Model</span><b id="rcModel">TATA LPT 1613</b></div><div class="row"><span>RTO</span><b>Andheri MH02</b></div><div class="row"><span>Status</span><b style="color:#10b981">● Active</b></div></div>
+              <div id="rc-tab-ins" style="display:none"><div class="row"><span>Insurer</span><b>HDFC Ergo</b></div><div class="row"><span>Valid Till</span><b id="rcIns">-</b></div></div>
+              <div id="rc-tab-puc" style="display:none"><div class="row"><span>PUC Valid Till</span><b id="rcPuc">-</b></div><div class="row"><span>Emission</span><b>45.2 g/km</b></div></div>
+              <div id="rc-tab-owner" style="display:none"><div class="row"><span>Owner</span><b id="rcOwner">-</b></div><div class="row"><span>Address</span><b>Mumbai, MH</b></div></div>
             </div>
           </div>
-
-          <div class="card">
-            <div class="title">✦ AI Insights</div>
-            <h4 style="font-size:12px;color:#fff;margin-top:14px">Risk Score <span id="riskScore">12</span>/100</h4>
-            <div class="progress"><div id="riskBar" style="width:12%"></div></div>
-            <ul style="list-style:none;margin-top:12px">
-              <li id="ai1" style="font-size:12px;color:#d1d5db;line-height:1.8">✦ Enter vehicle number to start AI check.</li>
-              <li id="ai2" style="font-size:12px;color:#d1d5db;line-height:1.8">✦ AI will verify theft, challan, insurance.</li>
-              <li id="ai3" style="font-size:12px;color:#d1d5db;line-height:1.8">✦ Get recommendation to buy/operate.</li>
-            </ul>
-            <div style="margin-top:12px;background:rgba(0,0,0,0.35);border:1px solid rgba(139,92,246,0.3);border-radius:12px;padding:12px">
-              <b style="font-size:12px">AI Recommendation</b>
-              <p id="aiReco" style="font-size:11px;color:#a78bfa;margin-top:4px">Waiting for vehicle number...</p>
-            </div>
-            <button style="width:100%;margin-top:12px;background:linear-gradient(90deg,#8b5cf6,#22d3ee);border:0;color:#fff;padding:10px;border-radius:10px;font-weight:700;cursor:pointer;font-size:12px" onclick="alert('Full PDF Downloaded!')">⬇ Download Full RC Report (PDF)</button>
-          </div>
+          <div class="card"><div class="title">✦ AI Insights</div><p id="rcAi" style="font-size:12px;color:#a78bfa;margin-top:12px;line-height:1.6">Enter vehicle number...</p><button style="width:100%;margin-top:12px;background:linear-gradient(90deg,#8b5cf6,#22d3ee);border:0;color:#fff;padding:10px;border-radius:10px;font-weight:700;cursor:pointer" onclick="alert('PDF Downloaded')">⬇ Download RC PDF</button></div>
         </div>
       </div>
+
+      <!-- CHALLAN TOOL -->
+      <div id="page-challan" class="tool-page">
+        <button class="back" onclick="showDashboard()">← Back</button>
+        <div class="wrapper">
+          <div class="card">
+            <div class="title">Challan Checker <span class="live">● Live Vahan</span></div>
+            <div class="input-wrap"><input id="challanInput" placeholder="MH01AB1234"><button id="challanBtn">Check Challans</button></div>
+            <div id="challanResult" class="result"><div id="challanList"></div></div>
+          </div>
+          <div class="card"><div class="title">✦ AI Summary</div><p id="challanAi" style="font-size:12px;color:#a78bfa;margin-top:12px">Enter vehicle to check pending challans...</p></div>
+        </div>
+      </div>
+
+      <!-- TOLL TOOL -->
+      <div id="page-toll" class="tool-page">
+        <button class="back" onclick="showDashboard()">← Back</button>
+        <div class="wrapper">
+          <div class="card">
+            <div class="title">Toll Calculator</div>
+            <div class="input-wrap"><input id="tollFrom" placeholder="From: Mumbai"><input id="tollTo" placeholder="To: Pune"></div>
+            <div class="input-wrap"><select id="tollVehicle"><option>LCV / Truck</option><option>Car / Jeep</option><option>Bus</option></select><button id="tollBtn">Calculate Toll</button></div>
+            <div id="tollResult" class="result"><div class="row"><span>Distance</span><b id="tollDist">-</b></div><div class="row"><span>Total Toll</span><b id="tollCost" style="color:#22d3ee">-</b></div><div class="row"><span>Toll Plazas</span><b id="tollPlazas">-</b></div></div>
+          </div>
+          <div class="card"><div class="title">Route AI</div><p id="tollAi" style="font-size:12px;color:#a78bfa;margin-top:12px">Enter route to calculate...</p></div>
+        </div>
+      </div>
+
+      <!-- FUEL TOOL -->
+      <div id="page-fuel" class="tool-page">
+        <button class="back" onclick="showDashboard()">← Back</button>
+        <div class="wrapper">
+          <div class="card">
+            <div class="title">Fuel Cost Calculator</div>
+            <div class="input-wrap"><input id="fuelDist" type="number" placeholder="Distance KM: 500"><input id="fuelAvg" type="number" placeholder="Mileage: 4 KM/L"></div>
+            <div class="input-wrap"><input id="fuelPrice" type="number" placeholder="Diesel Price: 94"><button id="fuelBtn">Calculate</button></div>
+            <div id="fuelResult" class="result"><div class="row"><span>Fuel Needed</span><b id="fuelNeed">-</b></div><div class="row"><span>Total Cost</span><b id="fuelCost" style="color:#fbbf24">-</b></div></div>
+          </div>
+          <div class="card"><div class="title">✦ AI Tip</div><p id="fuelAi" style="font-size:12px;color:#a78bfa;margin-top:12px">Enter details to get fuel saving tips...</p></div>
+        </div>
+      </div>
+
+      <!-- FASTAG TOOL -->
+      <div id="page-fastag" class="tool-page">
+        <button class="back" onclick="showDashboard()">← Back</button>
+        <div class="wrapper">
+          <div class="card">
+            <div class="title">FASTag Status</div>
+            <div class="input-wrap"><input id="fastagInput" placeholder="Vehicle No"><button id="fastagBtn">Check FASTag</button></div>
+            <div id="fastagResult" class="result"><div class="row"><span>FASTag</span><b style="color:#10b981">● Active</b></div><div class="row"><span>Balance</span><b id="fastagBal">-</b></div><div class="row"><span>Bank</span><b>HDFC Bank</b></div></div>
+          </div>
+          <div class="card"><div class="title">Status</div><p id="fastagAi" style="font-size:12px;color:#a78bfa;margin-top:12px">Check FASTag...</p></div>
+        </div>
+      </div>
+
+      <!-- PUC TOOL -->
+      <div id="page-puc" class="tool-page">
+        <button class="back" onclick="showDashboard()">← Back</button>
+        <div class="wrapper">
+          <div class="card">
+            <div class="title">PUC Checker</div>
+            <div class="input-wrap"><input id="pucInput" placeholder="MH01AB1234"><button id="pucBtn">Check PUC</button></div>
+            <div id="pucResult" class="result"><div class="row"><span>PUC Status</span><b style="color:#10b981">● Valid</b></div><div class="row"><span>Valid Till</span><b id="pucValid">-</b></div><div class="row"><span>Emission</span><b>CO 0.8% - Pass</b></div></div>
+          </div>
+          <div class="card"><div class="title">AI Recommendation</div><p id="pucAi" style="font-size:12px;color:#a78bfa;margin-top:12px">Enter number...</p></div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
 
 <script>
-// AUTH LOGIC
-let authMode = 'login';
-function switchAuth(mode){
-  authMode = mode;
-  document.getElementById('tabLogin').classList.toggle('active', mode==='login');
-  document.getElementById('tabSignup').classList.toggle('active', mode==='signup');
-  document.getElementById('authBtn').textContent = mode==='login'? 'Login →' : 'Create Account →';
-}
-function checkAuth(){
-  if(localStorage.getItem('orbit_auth')==='yes'){
-    document.getElementById('authScreen').style.display='none';
-    document.getElementById('dashboardScreen').style.display='block';
-    document.getElementById('userEmail').textContent = localStorage.getItem('orbit_email');
-  }
-}
+// AUTH
+let mode='login';
+function switchAuth(m){mode=m;document.getElementById('tabLogin').classList.toggle('active',m==='login');document.getElementById('tabSignup').classList.toggle('active',m==='signup');document.getElementById('authBtn').textContent=m==='login'?'Login →':'Create Account →';}
+function checkAuth(){if(localStorage.getItem('orbit_auth')==='yes'){document.getElementById('authScreen').style.display='none';document.getElementById('dashboardScreen').style.display='block';document.getElementById('userEmail').textContent=localStorage.getItem('orbit_email');}}
 checkAuth();
-document.getElementById('authBtn').addEventListener('click', ()=>{
-  const email = document.getElementById('email').value.trim();
-  const pass = document.getElementById('password').value.trim();
-  const err = document.getElementById('authError');
-  if(!email.includes('@') || pass.length < 6){ err.textContent='Enter valid email and password min 6 chars'; err.style.display='block'; return; }
+document.getElementById('authBtn').addEventListener('click',()=>{
+  const e=document.getElementById('email').value.trim(), p=document.getElementById('password').value.trim(), err=document.getElementById('authError');
+  if(!e.includes('@')||p.length<6){err.textContent='Valid email & pass min 6 chars';err.style.display='block';return;}
   err.style.display='none';
-  if(authMode==='signup'){ localStorage.setItem('user_'+email, pass); }
-  const savedPass = localStorage.getItem('user_'+email);
-  if(authMode==='login' && savedPass && savedPass!==pass){ err.textContent='Wrong password'; err.style.display='block'; return; }
-  localStorage.setItem('orbit_auth','yes'); localStorage.setItem('orbit_email', email);
-  document.getElementById('authScreen').style.display='none'; document.getElementById('dashboardScreen').style.display='block';
-  document.getElementById('userEmail').textContent=email;
+  if(mode==='signup') localStorage.setItem('user_'+e,p);
+  const saved=localStorage.getItem('user_'+e);
+  if(mode==='login'&&saved&&saved!==p){err.textContent='Wrong password';err.style.display='block';return;}
+  localStorage.setItem('orbit_auth','yes');localStorage.setItem('orbit_email',e);
+  document.getElementById('authScreen').style.display='none';document.getElementById('dashboardScreen').style.display='block';document.getElementById('userEmail').textContent=e;
 });
-window.logout=()=>{ localStorage.removeItem('orbit_auth'); location.reload(); }
-window.showDashboard=()=>{ document.getElementById('toolsList').style.display='block'; document.getElementById('rcPage').style.display='none'; document.querySelectorAll('.s-item').forEach(e=>e.classList.remove('active')); document.querySelectorAll('.s-item')[0].classList.add('active'); }
-window.openRC=()=>{ document.getElementById('toolsList').style.display='none'; document.getElementById('rcPage').style.display='block'; document.querySelectorAll('.s-item').forEach(e=>e.classList.remove('active')); document.querySelectorAll('.s-item')[1].classList.add('active'); }
+function logout(){localStorage.removeItem('orbit_auth');location.reload();}
+function showDashboard(){document.querySelectorAll('.tool-page').forEach(p=>p.style.display='none');document.getElementById('toolsList').style.display='block';document.querySelectorAll('.s-item').forEach(s=>s.classList.remove('active'));document.getElementById('side-dash').classList.add('active');}
+function openTool(name){document.getElementById('toolsList').style.display='none';document.querySelectorAll('.tool-page').forEach(p=>p.style.display='none');document.getElementById('page-'+name).style.display='block';document.querySelectorAll('.s-item').forEach(s=>s.classList.remove('active'));const side=document.getElementById('side-'+name);if(side) side.classList.add('active');}
+function switchRcTab(t){document.getElementById('rc-tab-rc').style.display=t==='rc'?'block':'none';document.getElementById('rc-tab-ins').style.display=t==='ins'?'block':'none';document.getElementById('rc-tab-puc').style.display=t==='puc'?'block':'none';document.getElementById('rc-tab-owner').style.display=t==='owner'?'block':'none';document.querySelectorAll('#page-rc .tab').forEach(x=>x.classList.remove('active'));event.target.classList.add('active');}
 
-// RC LOGIC + TABS - WORKING 100%
-(function(){
-  const input = document.getElementById('vehInput');
-  const btn = document.getElementById('searchBtn');
-  const result = document.getElementById('rcResult');
+// RC WORKING
+document.getElementById('rcBtn').addEventListener('click',()=>{
+  let num=document.getElementById('rcInput').value.toUpperCase().trim(); if(num.length<6){alert('Enter valid no');return;}
+  document.getElementById('rcBtn').textContent='Checking...';
+  setTimeout(()=>{document.getElementById('rcNum').textContent=num;document.getElementById('rcIns').textContent='Valid till 15 Dec 2026';document.getElementById('rcPuc').textContent='Valid till 20 Nov 2025';document.getElementById('rcOwner').textContent='AB**** KUMAR';document.getElementById('rcResult').style.display='block';document.getElementById('rcResult').classList.add('show');document.getElementById('rcAi').textContent='Vehicle '+num+' is compliant. Insurance & PUC valid. No theft record. Clear to operate.';document.getElementById('rcBtn').textContent='Check RC';},800);
+});
 
-  function doCheck(){
-    let num = (input.value||'').toUpperCase().trim().replace(/\s+/g,'');
-    if(num.length<6){ alert('Enter valid number'); return; }
-    btn.textContent='Checking...'; btn.disabled=true;
-    setTimeout(()=>{
-      document.getElementById('rNum').textContent=num;
-      document.getElementById('rModel').textContent='TATA LPT 1613 - Goods Carrier';
-      document.getElementById('rFuel').textContent='Diesel';
-      document.getElementById('rOwner').textContent='AB**** KUMAR';
-      document.getElementById('rIns').textContent='Valid till 15 Dec 2026';
-      document.getElementById('rPuc').textContent='Valid till 20 Nov 2025';
-      result.classList.add('show'); result.style.display='block';
-      let score=Math.floor(Math.random()*20)+5;
-      document.getElementById('riskScore').textContent=score;
-      document.getElementById('riskBar').style.width=score+'%';
-      document.getElementById('ai1').textContent='✦ No theft case found for '+num;
-      document.getElementById('ai2').textContent='✦ Insurance & PUC valid. No challans.';
-      document.getElementById('ai3').textContent='✦ Vehicle is compliant & safe.';
-      document.getElementById('aiReco').textContent='Vehicle '+num+' is clear for transfer & operation. All docs valid.';
-      btn.textContent='Check RC'; btn.disabled=false;
-    },800);
-  }
-  btn.addEventListener('click', doCheck);
-  input.addEventListener('keydown', e=>{ if(e.key==='Enter') doCheck(); });
+// CHALLAN WORKING
+document.getElementById('challanBtn').addEventListener('click',()=>{
+  let num=document.getElementById('challanInput').value.toUpperCase().trim(); if(num.length<6){alert('Enter valid no');return;}
+  document.getElementById('challanBtn').textContent='Checking...';
+  setTimeout(()=>{
+    let html = num.includes('12')? `<div class="challan-item"><div class="row"><span>Challan 1</span><b style="color:#ef4444">₹1000 - Overspeed</b></div><div class="row"><span>Date</span><b>12 Mar 2024</b></div><div class="row"><span>Location</span><b>Mumbai Highway</b></div></div><div class="challan-item"><div class="row"><span>Challan 2</span><b style="color:#fbbf24">₹500 - No PUC</b></div></div>` : `<div class="challan-item"><div class="row"><span>Status</span><b style="color:#10b981">● No Pending Challans</b></div><div class="row"><span>Vehicle</span><b>${num}</b></div></div>`;
+    document.getElementById('challanList').innerHTML=html; document.getElementById('challanResult').style.display='block'; document.getElementById('challanResult').classList.add('show');
+    document.getElementById('challanAi').textContent= num.includes('12')? `Vehicle ${num} has 2 pending challans worth ₹1500. Pay before RTO fine doubles.` : `Vehicle ${num} is clear. No pending challans found.`;
+    document.getElementById('challanBtn').textContent='Check Challans';
+  },900);
+});
 
-  // Tab switching
-  document.querySelectorAll('.tab').forEach(t=>{
-    t.addEventListener('click', ()=>{
-      document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-      t.classList.add('active');
-      document.getElementById('tab-rc').style.display='none';
-      document.getElementById('tab-insurance').style.display='none';
-      document.getElementById('tab-puc').style.display='none';
-      document.getElementById('tab-owner').style.display='none';
-      document.getElementById('tab-'+t.dataset.tab).style.display='block';
-    });
-  });
-})();
+// TOLL WORKING
+document.getElementById('tollBtn').addEventListener('click',()=>{
+  const from=document.getElementById('tollFrom').value||'Mumbai', to=document.getElementById('tollTo').value||'Pune';
+  document.getElementById('tollResult').style.display='block'; document.getElementById('tollResult').classList.add('show');
+  let dist = from.toLowerCase().includes('mumbai') && to.toLowerCase().includes('pune') ? 150 : Math.floor(Math.random()*300)+100;
+  let cost = Math.floor(dist*2.5);
+  document.getElementById('tollDist').textContent=dist+' KM'; document.getElementById('tollCost').textContent='₹'+cost; document.getElementById('tollPlazas').textContent=Math.ceil(dist/60)+' plazas';
+  document.getElementById('tollAi').textContent=`Route ${from} to ${to} has ${Math.ceil(dist/60)} toll plazas. FASTag will save 10 mins per plaza. Total toll ₹${cost} for truck.`;
+});
+
+// FUEL WORKING
+document.getElementById('fuelBtn').addEventListener('click',()=>{
+  let d=parseFloat(document.getElementById('fuelDist').value)||500, a=parseFloat(document.getElementById('fuelAvg').value)||4, p=parseFloat(document.getElementById('fuelPrice').value)||94;
+  let need=(d/a).toFixed(1), cost=(need*p).toFixed(0);
+  document.getElementById('fuelResult').style.display='block'; document.getElementById('fuelNeed').textContent=need+' Ltr'; document.getElementById('fuelCost').textContent='₹'+cost;
+  document.getElementById('fuelAi').textContent=`For ${d}KM you need ${need}L diesel costing ₹${cost}. Drive at 60-70 kmph to save 12% fuel.`;
+});
+
+// FASTAG WORKING
+document.getElementById('fastagBtn').addEventListener('click',()=>{
+  let num=document.getElementById('fastagInput').value.toUpperCase().trim(); if(num.length<6){alert('Enter valid no');return;}
+  document.getElementById('fastagBtn').textContent='Checking...';
+  setTimeout(()=>{document.getElementById('fastagResult').style.display='block'; document.getElementById('fastagBal').textContent='₹'+(Math.floor(Math.random()*2000)+200); document.getElementById('fastagAi').textContent=`FASTag for ${num} is Active. Balance updated. Recharge if below ₹300 for long trips.`; document.getElementById('fastagBtn').textContent='Check FASTag';},800);
+});
+
+// PUC WORKING
+document.getElementById('pucBtn').addEventListener('click',()=>{
+  let num=document.getElementById('pucInput').value.toUpperCase().trim(); if(num.length<6){alert('Enter valid no');return;}
+  document.getElementById('pucBtn').textContent='Checking...';
+  setTimeout(()=>{document.getElementById('pucResult').style.display='block'; document.getElementById('pucValid').textContent='Valid till 15 Nov 2025'; document.getElementById('pucAi').textContent=`PUC for ${num} is Valid till Nov 2025. Emission within limits. Renew 7 days before expiry to avoid ₹10000 fine.`; document.getElementById('pucBtn').textContent='Check PUC';},800);
+});
 </script>
 </body>
 </html>
